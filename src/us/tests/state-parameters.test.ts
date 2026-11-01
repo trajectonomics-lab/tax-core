@@ -31,11 +31,11 @@ describe("US State Parameter Registry", () => {
 		expect(US_STATE_CODES.length).toBe(51)
 	})
 
-	it("classifies 9 no-tax, 14 flat, and 27 progressive states plus DC", () => {
+	it("classifies 9 no-tax, 16 flat, and 25 progressive states plus DC", () => {
 		const states = Object.values(US_2026_STATE_PARAMETERS)
 		expect(states.filter((state) => state.type === "none")).toHaveLength(9)
-		expect(states.filter((state) => state.type === "flat")).toHaveLength(14)
-		expect(states.filter((state) => state.type === "progressive")).toHaveLength(28)
+		expect(states.filter((state) => state.type === "flat")).toHaveLength(16)
+		expect(states.filter((state) => state.type === "progressive")).toHaveLength(26)
 	})
 
 	it("provides ordered, bounded schedules for every filing status", () => {
@@ -59,6 +59,12 @@ describe("US State Parameter Registry", () => {
 			expect(state.standardDeduction.single).toBe(0)
 			expect(state.personalExemption.single).toBe(0)
 		}
+	})
+
+	it("classifies Louisiana and Ohio as flat under 2026 law", () => {
+		expect(US_2026_STATE_PARAMETERS.LA.type).toBe("flat")
+		expect(US_2026_STATE_PARAMETERS.OH.type).toBe("flat")
+		expect(US_2026_STATE_PARAMETERS.DC.type).toBe("progressive")
 	})
 
 	it("uses one positive statutory rate for each flat-tax state", () => {

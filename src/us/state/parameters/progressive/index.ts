@@ -7,7 +7,6 @@ import { US_2026_STATE_DC } from "./dc"
 import { US_2026_STATE_DE } from "./de"
 import { US_2026_STATE_HI } from "./hi"
 import { US_2026_STATE_KS } from "./ks"
-import { US_2026_STATE_LA } from "./la"
 import { US_2026_STATE_MD } from "./md"
 import { US_2026_STATE_ME } from "./me"
 import { US_2026_STATE_MN } from "./mn"
@@ -18,7 +17,6 @@ import { US_2026_STATE_NE } from "./ne"
 import { US_2026_STATE_NJ } from "./nj"
 import { US_2026_STATE_NM } from "./nm"
 import { US_2026_STATE_NY } from "./ny"
-import { US_2026_STATE_OH } from "./oh"
 import { US_2026_STATE_OK } from "./ok"
 import { US_2026_STATE_OR } from "./or"
 import { US_2026_STATE_RI } from "./ri"
@@ -29,7 +27,6 @@ import { US_2026_STATE_WI } from "./wi"
 import { US_2026_STATE_WV } from "./wv"
 
 const STATES: readonly UsStateParameters[] = [
-	US_2026_STATE_LA,
 	US_2026_STATE_AL,
 	US_2026_STATE_AR,
 	US_2026_STATE_CA,
@@ -48,7 +45,6 @@ const STATES: readonly UsStateParameters[] = [
 	US_2026_STATE_NM,
 	US_2026_STATE_NY,
 	US_2026_STATE_ND,
-	US_2026_STATE_OH,
 	US_2026_STATE_OK,
 	US_2026_STATE_OR,
 	US_2026_STATE_RI,
