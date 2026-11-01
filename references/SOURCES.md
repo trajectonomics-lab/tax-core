@@ -26,15 +26,16 @@ no official document read, only news or secondary reports.
 | ME | (browser only) | https://www.maine.gov/revenue/sites/maine.gov.revenue/files/inline-files/26_wh_tab_instr_August2026.pdf | match (brackets, $5,300 exemption, $15,700 / $31,400 deduction). **Gaps**: 2% surcharge over $1M single / $1.5M married; deduction phase-out $102,250 to $177,250 single, $204,550 to $354,550 joint |
 | NC | `NC-2026-NC30.pdf` | https://www.ncdor.gov/income-tax-withholding-tables-and-instructions-employers/open | match (3.99%, $12,750 threshold) |
 | SC | `SC-2026-WH1603F.pdf`, `SC-2026-WH1603.pdf` | https://dor.sc.gov/sites/dor/files/forms/WH1603F_2026.pdf | match for 0% / 3% / 6% at $3,640 / $18,230. Reports of a later 1.99% / 5.21% schedule (H.4216) are unconfirmed |
-| AR | `AR-2026-withholding-formula.pdf` | https://www.dfa.arkansas.gov/wp-content/uploads/whformula_2026.pdf | **mismatch**: brackets are 0% to $5,599, 2% to $11,199, 3% to $15,999, 3.4% to $26,399, then 3.9%; the top rate became 3.7% retroactive to 2026-01-01 (H.B. 1001; revised formula of 2026-05-29 not downloaded). $2,470 deduction matches |
-| HI | `HI-ann24-03.pdf`, `HI-2026-booklet-A.pdf` | https://files.hawaii.gov/tax/news/announce/ann24-03.pdf | **mismatch**: 2026 std deduction is $8,000 single/MFS, $16,000 joint, $12,000 HoH (Act 46); engine has 4,400 / 8,800 / 6,424 |
-| MD | `MD-2026-withholding-guide.pdf` | https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/instructions/withholding/2026/withholding-guide.pdf | **mismatch**: std deduction $3,400 (engine $3,350 single / $6,700 joint) |
+| AR | `AR-2026-withholding-formula.pdf` | https://www.dfa.arkansas.gov/wp-content/uploads/whformula_2026.pdf | **fixed** (was mismatch): brackets are 0% to $5,599, 2% to $11,199, 3% to $15,999, 3.4% to $26,399, then 3.9%; the top rate became 3.7% retroactive to 2026-01-01 (H.B. 1001; revised formula of 2026-05-29 not downloaded). $2,470 deduction matches |
+| HI | `HI-ann24-03.pdf`, `HI-2026-booklet-A.pdf` | https://files.hawaii.gov/tax/news/announce/ann24-03.pdf | **fixed** (was mismatch): 2026 std deduction is $8,000 single/MFS, $16,000 joint, $12,000 HoH (Act 46); engine has 4,400 / 8,800 / 6,424 |
+| MD | `MD-2026-withholding-guide.pdf` | https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/instructions/withholding/2026/withholding-guide.pdf | **fixed** (was mismatch): std deduction $3,400 single (joint $6,800 doubled, not stated) (engine $3,350 single / $6,700 joint) |
 | IA | `IA-2026-withholding-formula.pdf` | https://revenue.iowa.gov/media/53/download | match (3.80%) |
 | OH | `OH-2026-percentage-method.pdf`, `OH-2026-optional-computer-formula.pdf` | https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/employer_withholding/2026%20Withholding%20Tables/WHT_PercentageMethod_2026.pdf | partial: $26,050 threshold confirmed; withholding rates (1.6 / 2.99 / 3.4%) are not the statutory 2.75% |
 | ND | `ND-2026-withholding-rates-booklet.pdf` | https://www.tax.nd.gov/sites/www/files/documents/forms/individual/2026-iit/2026-income-tax-withholding-rates-booklet.pdf | **unconfirmed**: withholding zero band is $57,625 single / $57,500 married, which does not map to our statutory $48,475 / $80,975 (probably 2025 values) |
 | MS | `MS-2026-weekly-table.pdf` | https://www.dor.ms.gov/sites/default/files/business/Weekly2026.pdf | partial, values not yet read |
 | MT | `MT-2026-publication-1.pdf` | https://revenuefiles.mt.gov/files/Forms/Publication-1/Publication-1-2026.pdf | partial: 5.65% confirmed; federal standard deduction used |
 | OR | `OR-2026-withholding-tax-formulas.pdf`, `OR-2026-withholding-tax-tables.pdf` | https://www.oregon.gov/dor/forms/FormsPubs/withholding-tax-tables_206-430_2026.pdf | partial, values not yet read |
+| VT | `VT-2026-GB-1210.pdf` | https://tax.vermont.gov/sites/tax/files/documents/GB-1210-2026.pdf | **likely mismatch, not yet fixed**: withholding band widths are about 2.7% larger than ours (single 3.35% band 50,750 vs 49,400; joint 84,700 vs 82,500), so our thresholds look like 2025 values. Exact 2026 statutory thresholds not stated |
 | CO | `CO-2026-DR0004.pdf` | https://tax.colorado.gov/sites/tax/files/documents/DR_0004_2026.pdf | partial (allowance form only) |
 | LA | `LA-2026-RIB-26-005.pdf` | https://dam.ldr.la.gov/lawspolicies/RIB%2026-005-Updated%20Withholding%20Tables.pdf | partial, not checked |
 
@@ -51,4 +52,4 @@ no official document read, only news or secondary reports.
 
 ## Not yet collected
 
-AL, DE, KS, NE, NJ, NM, OK, PA, RI, VT, WI, DC.
+AL, DE, KS, NE, NJ, NM, OK, PA, RI, WI, DC (searches returned only older-year or blocked documents; the 2026 forms for several states are not yet published). The Oregon "2026" formula file contains 2025 amounts.

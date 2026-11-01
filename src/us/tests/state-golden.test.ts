@@ -64,10 +64,10 @@ const FILING_STATUS_EXAMPLES: readonly WorkedExample[] = [
 		filingStatus: "married_filing_separately",
 	},
 	{
-		// Maryland HoH uses the joint schedule and 6,700 deduction: 90,100 taxable after 3,200.
+		// Maryland HoH uses the joint schedule and 6,800 deduction: 90,000 taxable after 3,200.
 		state: "MD",
 		wages: 100_000,
-		expectedTax: 4227.25,
+		expectedTax: 4222.5,
 		label: "MD head of household on the joint schedule",
 		filingStatus: "head_of_household",
 	},
