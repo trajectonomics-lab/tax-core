@@ -4,29 +4,31 @@ import type { TaxResult } from "../core/system"
 import { buildUsTaxResult } from "./calculate-result"
 import { US_2026_PARAMETERS } from "./parameters"
 import { calculateUsAgi } from "./stages/agi"
-import { calculateUsAmt } from "./stages/amt"
+import { calculateUsAmt, resolveAmtSaltCents } from "./stages/amt"
 import { calculateUsCredits } from "./stages/credits"
 import { calculateUsDeductions } from "./stages/deductions"
 import { calculateUsFica } from "./stages/fica"
 import { calculateUsNiit } from "./stages/niit"
 import { calculateUsPreferentialStacking } from "./stages/preferential"
 import { calculateUsScheduleSe } from "./stages/se"
+import { calculateUsStateTax } from "./stages/state"
 import type { UsTaxBreakdown, UsTaxInput } from "./types"
 import { validateUsInput } from "./validate"
 
-/**
- * Executes complete statutory 2026 US Federal individual income tax calculation pipeline.
- *
- * @statute IRC § 1 et seq.
- */
+/** Executes the 2026 US federal, payroll, and state income tax pipeline. @statute IRC § 1 et seq. */
 export function executeUsTaxCalculation(input: UsTaxInput): TaxResult<"USD", UsTaxBreakdown> {
 	validateUsInput(input)
 	const seRes = calculateUsScheduleSe(input.income, US_2026_PARAMETERS)
-	const deductibleSelfEmploymentTax =
-		input.adjustments?.deductibleSelfEmploymentTax ?? seRes.deductiblePortionDollars
-	const adjustments = { ...input.adjustments, deductibleSelfEmploymentTax }
+	const seTax = input.adjustments?.deductibleSelfEmploymentTax ?? seRes.deductiblePortionDollars
+	const adjustments = { ...input.adjustments, deductibleSelfEmploymentTax: seTax }
 
 	const agiRes = calculateUsAgi(input.income, adjustments, input.filingStatus, US_2026_PARAMETERS)
+	const stateRes = calculateUsStateTax(
+		input,
+		agiRes.agiCents,
+		input.filingStatus,
+		US_2026_PARAMETERS.currency,
+	)
 	const dedRes = calculateUsDeductions(
 		input,
 		agiRes.agiCents,
@@ -47,10 +49,7 @@ export function executeUsTaxCalculation(input: UsTaxInput): TaxResult<"USD", UsT
 	)
 	const regularTaxCents = ordRes.totalTax + prefRes.preferentialTaxCents
 
-	const saltCents =
-		dedRes.electedDeduction === "itemized" && dedRes.itemizedBreakdown
-			? toMinorUnits(dedRes.itemizedBreakdown.salt.allowed, "USD")
-			: 0
+	const saltCents = resolveAmtSaltCents(dedRes, US_2026_PARAMETERS.currency)
 	const amtRes = calculateUsAmt(
 		dedRes.taxableIncomeCents,
 		saltCents,
@@ -75,10 +74,16 @@ export function executeUsTaxCalculation(input: UsTaxInput): TaxResult<"USD", UsT
 	)
 	const taxAfterNonRefCents =
 		regularTaxCents + amtRes.amtTaxCents - creditsRes.allowedNonRefundableCents
-	const totalTaxCents =
+	const federalTaxCents =
 		taxAfterNonRefCents + niitRes.taxCents + ficaRes.totalFicaCents + seRes.totalSeTaxCents
-	const withhCents = toMinorUnits(input.withholding ?? 0, "USD", "withholding")
-	const netTaxCents = totalTaxCents - creditsRes.totalRefundableCents - withhCents
+	const totalTaxCents = federalTaxCents + stateRes.totalTaxCents
+	const withhCents = toMinorUnits(
+		input.withholding ?? 0,
+		US_2026_PARAMETERS.currency,
+		"withholding",
+	)
+	const federalNetCents = federalTaxCents - creditsRes.totalRefundableCents - withhCents
+	const netTaxCents = federalNetCents + stateRes.netTaxCents
 
 	return buildUsTaxResult({
 		agiRes,
@@ -93,6 +98,7 @@ export function executeUsTaxCalculation(input: UsTaxInput): TaxResult<"USD", UsT
 		ficaRes,
 		seRes,
 		creditsRes,
+		stateRes,
 		totalTaxCents,
 		withhCents,
 		netTaxCents,

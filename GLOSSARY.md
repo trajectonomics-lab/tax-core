@@ -95,3 +95,11 @@ _Avoid_: Minimum gross tax
 **Payroll & Self-Employment Tax (FICA / SECA)**:
 Mandatory federal Social Security, Medicare, and Additional Medicare taxes levied on W-2 earned wages (FICA) and net self-employment earnings (Schedule SE / SECA) independently of income tax brackets.
 _Avoid_: Withholding tax
+
+**State Income Tax**:
+The optional layer that applies one of the 50 state individual income tax systems or the District of Columbia to a federal adjusted gross income starting point, using that state's own standard deduction, personal/dependent exemptions or credits, and statutory bracket table. Nine states impose no wage income tax; the remaining states use either a single flat rate or a graduated schedule, with high-income surtaxes where enacted.
+_Avoid_: Local tax, municipal tax
+
+**State Surtax**:
+An additional statutory rate applied above a state taxable-income threshold on top of the regular state bracket tax, such as the Massachusetts 4% millionaire surtax or the California 1% mental health services surtax.
+_Avoid_: Marginal rate, bracket rate

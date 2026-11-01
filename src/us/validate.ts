@@ -1,5 +1,6 @@
 import { TaxValidationError } from "../core/money"
-import type { UsFilingStatus, UsTaxInput } from "./types"
+import type { UsFilingStatus, UsStateCreditsInput, UsTaxInput } from "./types"
+import { US_STATE_CODES } from "./types"
 
 const VALID_STATUSES: readonly UsFilingStatus[] = [
 	"single",
@@ -27,6 +28,12 @@ function checkNonNegativeInt(field: string, val: number | undefined): void {
 	if (typeof val !== "number" || !Number.isSafeInteger(val) || val < 0) {
 		throw new TaxValidationError(field, val, "Must be a non-negative integer")
 	}
+}
+
+function validateStateCreditsInput(credits: UsStateCreditsInput | undefined): void {
+	if (!credits) return
+	checkNonNegative("stateCredits.nonRefundable", credits.nonRefundable)
+	checkNonNegative("stateCredits.refundable", credits.refundable)
 }
 
 function validateCreditsInput(credits: UsTaxInput["credits"]): void {
@@ -70,5 +77,11 @@ export function validateUsInput(input: UsTaxInput): void {
 	checkNonNegative("income.w2Wages", input.income.w2Wages)
 	// Self-employment may be negative for Schedule C net business losses
 	checkFiniteNumber("income.selfEmploymentNetEarnings", input.income.selfEmploymentNetEarnings)
+	if (input.state !== undefined && !US_STATE_CODES.includes(input.state)) {
+		throw new TaxValidationError("state", input.state, "Unsupported US state code")
+	}
+	checkNonNegativeInt("stateDependents", input.stateDependents)
+	checkNonNegative("stateWithholding", input.stateWithholding)
+	validateStateCreditsInput(input.stateCredits)
 	validateCreditsInput(input.credits)
 }

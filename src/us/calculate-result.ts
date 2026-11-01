@@ -9,6 +9,7 @@ import type { UsFicaResult } from "./stages/fica"
 import type { UsNiitStageResult } from "./stages/niit"
 import type { UsPreferentialStageResult } from "./stages/preferential"
 import type { UsScheduleSeResult } from "./stages/se"
+import type { UsStateResult } from "./stages/state"
 import type { UsTaxBreakdown } from "./types"
 
 export interface BuildTaxResultParams {
@@ -24,6 +25,7 @@ export interface BuildTaxResultParams {
 	readonly ficaRes: UsFicaResult
 	readonly seRes: UsScheduleSeResult
 	readonly creditsRes: UsCreditsResult
+	readonly stateRes: UsStateResult
 	readonly totalTaxCents: number
 	readonly withhCents: number
 	readonly netTaxCents: number
@@ -70,6 +72,7 @@ export function buildUsTaxResult(p: BuildTaxResultParams): TaxResult<"USD", UsTa
 			fica: p.ficaRes.breakdown,
 			scheduleSe: p.seRes.breakdown,
 			credits: p.creditsRes.breakdown,
+			state: p.stateRes.breakdown,
 			totalTax: usd(fromMinorUnits(p.totalTaxCents, "USD")),
 			withholding: usd(fromMinorUnits(p.withhCents, "USD")),
 			netTaxPayable: netPayable,
