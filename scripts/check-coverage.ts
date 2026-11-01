@@ -10,13 +10,19 @@ try {
 	let linesHit = 0
 	const coveredFiles = new Set<string>()
 
+	let currentFile = ""
 	for (const line of content.split("\n")) {
 		if (line.startsWith("SF:")) {
-			coveredFiles.add(line.slice(3).trim())
+			currentFile = line.slice(3).trim()
+			coveredFiles.add(currentFile)
 		} else if (line.startsWith("LF:")) {
-			linesFound += Number.parseInt(line.slice(3), 10) || 0
+			if (currentFile.startsWith("src/")) {
+				linesFound += Number.parseInt(line.slice(3), 10) || 0
+			}
 		} else if (line.startsWith("LH:")) {
-			linesHit += Number.parseInt(line.slice(3), 10) || 0
+			if (currentFile.startsWith("src/")) {
+				linesHit += Number.parseInt(line.slice(3), 10) || 0
+			}
 		}
 	}
 
