@@ -4,7 +4,7 @@ import type { UsStateParameters } from "../types"
 /**
  * 2026 Arizona individual income tax parameters.
  *
- * Pre-OBBBA federal standard deduction; $100 dependent credit.
+ * Federal-conforming standard deduction; $100 dependent credit.
  *
  * @statute Ariz. Rev. Stat. § 43-1011
  */
@@ -14,7 +14,7 @@ const ARIZONA: UsStateParameters = defineState({
 	type: "flat",
 	single: [[0, 0.025]],
 	mfj: [[0, 0.025]],
-	std: [8350, 16700],
+	std: [16100, 32200, 24150],
 	dependentCredit: 100,
 })
 

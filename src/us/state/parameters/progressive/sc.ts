@@ -19,6 +19,6 @@ export const US_2026_STATE_SC: UsStateParameters = defineState({
 		[3_640, 0.03],
 		[18_230, 0.06],
 	],
-	std: [8350, 16700],
+	std: [16100, 32200, 24150],
 	dependentExemption: 4_930,
 })

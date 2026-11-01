@@ -17,6 +17,12 @@ const WORKED_EXAMPLES: ReadonlyArray<readonly [UsStateCode, number, number, stri
 	["OH", 100_042, 1968.78, "OH flat above the zero bracket"],
 	// California: 5,223.42 bracket tax on 94,460 taxable less the $153 exemption credit.
 	["CA", 100_000, 5070.42, "CA nine-tier schedule less personal credit"],
+	// Arizona: 2.5% x (100,000 - 16,100 federal-conforming standard deduction).
+	["AZ", 100_000, 2097.5, "AZ flat after federal-conforming standard deduction"],
+	// South Carolina: 3% x (18,230 - 3,640) + 6% x (83,900 - 18,230) after the 16,100 deduction.
+	["SC", 100_000, 4377.9, "SC three-tier schedule after federal-conforming deduction"],
+	// Maine: 40,000 taxable (15,300 deduction, 5,300 exemption): 1,589.20 + 850.50.
+	["ME", 60_600, 2439.7, "ME two-tier schedule after official 2026 deduction"],
 	// New York: 4,859.75 bracket tax on 92,000 taxable.
 	["NY", 100_000, 4859.75, "NY graduated schedule"],
 ]
