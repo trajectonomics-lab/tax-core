@@ -1,10 +1,4 @@
-import {
-	CURRENCIES,
-	type CurrencyCode,
-	type CurrencyInfo,
-	getCurrencyPrecision,
-	type StandardCurrencyCode,
-} from "./currency"
+import type { TaxSupportedCurrency } from "./currency"
 import { TaxValidationError } from "./errors"
 import { fromMinorUnits, toMinorUnits } from "./minor-units"
 import { applyGrossUp, applyPercentage, type RoundingMode, roundHalfUp } from "./rounding"
@@ -21,17 +15,13 @@ import {
 export {
 	applyGrossUp,
 	applyPercentage,
-	CURRENCIES,
-	type CurrencyCode,
-	type CurrencyInfo,
 	fromMinorUnits,
-	getCurrencyPrecision,
 	type Money,
 	money,
 	multiplySafeInteger,
 	type RoundingMode,
 	roundHalfUp,
-	type StandardCurrencyCode,
+	type TaxSupportedCurrency,
 	TaxValidationError,
 	thb,
 	toMinorUnits,

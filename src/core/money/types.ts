@@ -1,11 +1,11 @@
-import type { CurrencyCode } from "./currency"
+import type { TaxSupportedCurrency } from "./currency"
 import { type ValidateAmountOptions, validateMonetaryAmount } from "./validate"
 
 /**
  * Branded nominal type representing a monetary value in a specific currency.
  * Enforces compile-time type safety preventing accidental cross-currency mixing.
  */
-export type Money<C extends CurrencyCode = CurrencyCode> = number & {
+export type Money<C extends TaxSupportedCurrency = TaxSupportedCurrency> = number & {
 	readonly __currencyBrand: C
 }
 
@@ -19,7 +19,7 @@ export type Money<C extends CurrencyCode = CurrencyCode> = number & {
  * @returns Branded Money value.
  * @throws {TaxValidationError} if amount is NaN, infinite, or negative without allowNegative.
  */
-export function money<C extends CurrencyCode>(
+export function money<C extends TaxSupportedCurrency>(
 	amount: number,
 	_currency?: C,
 	field = "amount",

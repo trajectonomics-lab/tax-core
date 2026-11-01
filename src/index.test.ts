@@ -1,12 +1,11 @@
 import { describe, expect, it } from "bun:test"
+import * as api from "./index"
 import {
 	applyPercentage,
-	CURRENCIES,
 	calculateTax,
 	clampCap,
 	evaluateBrackets,
 	fromMinorUnits,
-	getCurrencyPrecision,
 	money,
 	roundHalfUp,
 	TaxValidationError,
@@ -20,8 +19,6 @@ import * as us from "./us/index"
 
 describe("@trajectonomics/tax public index exports", () => {
 	it("exports all expected core utilities and functions", () => {
-		expect(typeof CURRENCIES).toBe("object")
-		expect(typeof getCurrencyPrecision).toBe("function")
 		expect(typeof money).toBe("function")
 		expect(typeof thb).toBe("function")
 		expect(typeof usd).toBe("function")
@@ -34,6 +31,11 @@ describe("@trajectonomics/tax public index exports", () => {
 		expect(typeof clampCap).toBe("function")
 		expect(typeof evaluateBrackets).toBe("function")
 		expect(typeof calculateTax).toBe("function")
+	})
+
+	it("does not leak internal currency lookups", () => {
+		expect("CURRENCIES" in api).toBe(false)
+		expect("getCurrencyPrecision" in api).toBe(false)
 	})
 
 	it("exports valid subpath entries for th and us", () => {

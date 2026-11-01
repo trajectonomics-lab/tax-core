@@ -12,16 +12,12 @@ export {
 } from "./core/caps"
 export {
 	applyPercentage,
-	CURRENCIES,
-	type CurrencyCode,
-	type CurrencyInfo,
 	fromMinorUnits,
-	getCurrencyPrecision,
 	type Money,
 	money,
 	type RoundingMode,
 	roundHalfUp,
-	type StandardCurrencyCode,
+	type TaxSupportedCurrency,
 	TaxValidationError,
 	thb,
 	toMinorUnits,

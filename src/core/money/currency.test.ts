@@ -1,23 +1,13 @@
 import { describe, expect, it } from "bun:test"
-import { CURRENCIES, getCurrencyPrecision } from "./currency"
+import { CURRENCY_PRECISION } from "./currency"
 
-describe("ISO 4217 Currency Precision Table", () => {
-	it("provides correct precision for standard currencies", () => {
-		expect(CURRENCIES.THB.precision).toBe(2)
-		expect(CURRENCIES.USD.precision).toBe(2)
-		expect(CURRENCIES.JPY.precision).toBe(0)
-		expect(CURRENCIES.KWD.precision).toBe(3)
-		expect(CURRENCIES.EUR.precision).toBe(2)
-		expect(CURRENCIES.GBP.precision).toBe(2)
+describe("Supported currency precision", () => {
+	it("defines 2-decimal minor units for THB (satang) and USD (cents)", () => {
+		expect(CURRENCY_PRECISION.THB).toBe(2)
+		expect(CURRENCY_PRECISION.USD).toBe(2)
 	})
 
-	it("retrieves currency precision via helper and ignores prototype keys", () => {
-		expect(getCurrencyPrecision("THB")).toBe(2)
-		expect(getCurrencyPrecision("USD")).toBe(2)
-		expect(getCurrencyPrecision("JPY")).toBe(0)
-		expect(getCurrencyPrecision("KWD")).toBe(3)
-		expect(getCurrencyPrecision("UNKNOWN")).toBe(2)
-		expect(getCurrencyPrecision("toString")).toBe(2)
-		expect(getCurrencyPrecision("constructor")).toBe(2)
+	it("covers exactly the supported currencies", () => {
+		expect(Object.keys(CURRENCY_PRECISION).sort()).toEqual(["THB", "USD"])
 	})
 })
