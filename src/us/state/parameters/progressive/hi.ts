@@ -1,0 +1,43 @@
+import { defineState } from "../helpers"
+import type { UsStateParameters } from "../types"
+/**
+ * 2026 Hawaii individual income tax parameters.
+ *
+ * @statute Haw. Rev. Stat. § 235-51
+ */
+export const US_2026_STATE_HI: UsStateParameters = defineState({
+	code: "HI",
+	name: "Hawaii",
+	type: "progressive",
+	single: [
+		[0, 0.014],
+		[9_600, 0.032],
+		[14_400, 0.055],
+		[19_200, 0.064],
+		[24_000, 0.068],
+		[36_000, 0.072],
+		[48_000, 0.076],
+		[125_000, 0.079],
+		[175_000, 0.0825],
+		[225_000, 0.09],
+		[275_000, 0.1],
+		[325_000, 0.11],
+	],
+	mfj: [
+		[0, 0.014],
+		[19_200, 0.032],
+		[28_800, 0.055],
+		[38_400, 0.064],
+		[48_000, 0.068],
+		[72_000, 0.072],
+		[96_000, 0.076],
+		[250_000, 0.079],
+		[350_000, 0.0825],
+		[450_000, 0.09],
+		[550_000, 0.1],
+		[650_000, 0.11],
+	],
+	std: [4400, 8800],
+	personalExemption: [1144, 2288],
+	dependentExemption: 1_144,
+})

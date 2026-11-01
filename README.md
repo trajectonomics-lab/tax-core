@@ -1,6 +1,16 @@
 # @trajectonomics/tax
 
-Pure, deterministic statutory tax calculation engine with subpaths for Thailand (`@trajectonomics/tax/th`) and US Federal (`@trajectonomics/tax/us`).
+Pure, deterministic statutory tax calculation engine with subpaths for Thailand (`@trajectonomics/tax/th`) and the United States (`@trajectonomics/tax/us`), covering 2026 federal tax plus all 50 state income tax systems and the District of Columbia.
+
+## United States State Tax
+
+`calculateUsTax` accepts an optional `state` code (`AL` through `WY` plus `DC`). When present, the result includes `breakdown.state` with state taxable income, bracket slices, personal/dependent credits, state withholding, and net state tax, and the state liability is folded into the top-level `totalTax` and `netTaxPayable`.
+
+- Nine no-income-tax states (`AK`, `FL`, `NV`, `NH`, `SD`, `TN`, `TX`, `WA`, `WY`) return zero state tax and zero state rates.
+- Fourteen flat-rate states and twenty-seven graduated-rate states plus `DC` use their 2026 standard deductions, personal/dependent exemptions, and statutory bracket tables.
+- `MA` includes the 4% millionaire surtax and `CA` includes the 1% mental health services surtax.
+- State inputs also include `stateDependents`, `stateWithholding`, and `stateCredits` (`nonRefundable` / `refundable`).
+- State calculations start from federal AGI and apply the state standard deduction, personal/dependent exemptions or credits, and the state bracket table. Local/city income taxes, state itemized deductions, and income-tested phase-outs not encoded in the parameter tables are out of scope.
 
 ## Commands
 

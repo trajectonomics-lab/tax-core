@@ -1,7 +1,24 @@
-import { fromMinorUnits, toMinorUnits, usd } from "../../core/money"
+import { fromMinorUnits, type TaxSupportedCurrency, toMinorUnits, usd } from "../../core/money"
 import type { US_2026_PARAMETERS } from "../parameters"
 import type { UsAmtBreakdown, UsFilingStatus } from "../types"
 import { UsAmtField } from "../types/fields"
+import type { UsDeductionsStageResult } from "./deductions"
+
+/**
+ * Resolves the Schedule A SALT add-back for Form 6251.
+ *
+ * @param deductions Deduction stage result carrying the elected method and Schedule A.
+ * @param currency Supported statutory currency threaded for minor-unit conversion.
+ * @returns Allowed SALT deduction in integer cents (0 unless itemizing).
+ */
+export function resolveAmtSaltCents(
+	deductions: UsDeductionsStageResult,
+	currency: TaxSupportedCurrency,
+): number {
+	return deductions.electedDeduction === "itemized" && deductions.itemizedBreakdown
+		? toMinorUnits(deductions.itemizedBreakdown.salt.allowed, currency)
+		: 0
+}
 
 export interface UsAmtResult {
 	readonly amtTaxCents: number

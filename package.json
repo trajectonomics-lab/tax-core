@@ -1,7 +1,7 @@
 {
 	"name": "@trajectonomics/tax",
 	"version": "0.0.0-development",
-	"description": "Pure, multi-jurisdiction individual income tax engine (TH 2026, US placeholder)",
+	"description": "Pure, multi-jurisdiction individual income tax engine (TH 2026, US 2026 federal and 50-state)",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
