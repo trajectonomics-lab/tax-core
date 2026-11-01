@@ -1,4 +1,4 @@
-import type { CurrencyCode } from "../money"
+import type { TaxSupportedCurrency } from "../money"
 import type { TaxResult, TaxSystem } from "./types"
 
 /**
@@ -8,7 +8,7 @@ import type { TaxResult, TaxSystem } from "./types"
  * @param input Statutory input parameters.
  * @returns Standardized TaxResult envelope.
  */
-export function calculateTax<TInput, C extends CurrencyCode, TBreakdown>(
+export function calculateTax<TInput, C extends TaxSupportedCurrency, TBreakdown>(
 	system: TaxSystem<TInput, C, TBreakdown>,
 	input: TInput,
 ): TaxResult<C, TBreakdown> {

@@ -24,28 +24,18 @@ describe("Minor Unit conversions without floating-point drift", () => {
 
 	it("supports negative amounts when allowNegative option is enabled", () => {
 		expect(toMinorUnits(-1.14, "USD", "amount", { allowNegative: true })).toBe(-114)
-		expect(toMinorUnits(-100, "JPY", "amount", { allowNegative: true })).toBe(-100)
 		expect(fromMinorUnits(-114, "USD", "minorUnits", { allowNegative: true })).toBe(-1.14)
-		expect(fromMinorUnits(-100, "JPY", "minorUnits", { allowNegative: true })).toBe(-100)
 	})
 
 	it("throws TaxValidationError when conversion exceeds safe integer bounds", () => {
 		expect(() => toMinorUnits(1e16, "THB")).toThrow(TaxValidationError)
-		expect(() => toMinorUnits(1e21, "JPY")).toThrow(TaxValidationError)
-	})
-
-	it("converts 0-decimal and 3-decimal currencies correctly", () => {
-		expect(toMinorUnits(100, "JPY")).toBe(100)
-		expect(toMinorUnits(2500, "JPY")).toBe(2500)
-		expect(toMinorUnits(1.234, "KWD")).toBe(1234)
+		expect(() => toMinorUnits(1e21, "USD")).toThrow(TaxValidationError)
 	})
 
 	it("converts from integer minor units back to major units", () => {
 		expect(fromMinorUnits(114, "USD")).toBe(1.14)
 		expect(fromMinorUnits(7, "USD")).toBe(0.07)
 		expect(fromMinorUnits(1055, "THB")).toBe(10.55)
-		expect(fromMinorUnits(100, "JPY")).toBe(100)
-		expect(fromMinorUnits(1234, "KWD")).toBe(1.234)
 	})
 
 	it("enforces safe integer input in fromMinorUnits", () => {

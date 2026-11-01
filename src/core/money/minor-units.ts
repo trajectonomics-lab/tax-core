@@ -1,4 +1,4 @@
-import { type CurrencyCode, getCurrencyPrecision } from "./currency"
+import { CURRENCY_PRECISION, type TaxSupportedCurrency } from "./currency"
 import { TaxValidationError } from "./errors"
 import {
 	type ValidateAmountOptions,
@@ -26,7 +26,7 @@ function scaleDecimalString(abs: number, precision: number): number {
  * Units: Input is major currency unit (e.g. THB, USD); output is integer minor units (e.g. Satang, Cents).
  *
  * @param amount Amount in major units.
- * @param currency ISO 4217 currency code.
+ * @param currency Supported statutory currency (THB or USD).
  * @param field Diagnostic field name.
  * @param options Validation options (e.g. allowNegative for refund balances).
  * @returns Integer minor units.
@@ -35,24 +35,12 @@ function scaleDecimalString(abs: number, precision: number): number {
  */
 export function toMinorUnits(
 	amount: number,
-	currency: CurrencyCode,
+	currency: TaxSupportedCurrency,
 	field = "amount",
 	options?: ValidateAmountOptions,
 ): number {
 	validateMonetaryAmount(amount, field, options)
-	const precision = getCurrencyPrecision(currency)
-	if (precision === 0) {
-		const rounded = Math.round(amount) + 0
-		if (!Number.isSafeInteger(rounded)) {
-			throw new TaxValidationError(
-				field,
-				amount,
-				"Conversion to minor units failed or exceeded safe integer bounds",
-			)
-		}
-		return rounded
-	}
-
+	const precision = CURRENCY_PRECISION[currency]
 	const sign = amount < 0 ? -1 : 1
 	const abs = Math.abs(amount)
 	const scaled = scaleDecimalString(abs, precision)
@@ -71,7 +59,7 @@ export function toMinorUnits(
  * Converts an integer minor unit amount back to major currency units.
  *
  * @param minorUnits Integer minor units.
- * @param currency ISO 4217 currency code.
+ * @param currency Supported statutory currency (THB or USD).
  * @param field Diagnostic field name.
  * @param options Validation options (e.g. allowNegative for refund balances).
  * @returns Amount in major units.
@@ -80,15 +68,12 @@ export function toMinorUnits(
  */
 export function fromMinorUnits(
 	minorUnits: number,
-	currency: CurrencyCode,
+	currency: TaxSupportedCurrency,
 	field = "minorUnits",
 	options?: ValidateAmountOptions,
 ): number {
 	validateIntegerMinorUnits(minorUnits, field, options)
-	const precision = getCurrencyPrecision(currency)
-	if (precision === 0) {
-		return minorUnits + 0
-	}
+	const precision = CURRENCY_PRECISION[currency]
 	const factor = 10 ** precision
 	const sign = minorUnits < 0 ? -1 : 1
 	const absUnits = Math.abs(minorUnits)

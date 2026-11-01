@@ -1,4 +1,4 @@
-import type { CurrencyCode } from "../money/currency"
+import type { TaxSupportedCurrency } from "../money/currency"
 
 /**
  * Result of clamping an amount against a statutory cap ceiling.
@@ -24,8 +24,8 @@ export interface StatutoryCapOptions {
 	readonly rate?: number
 	/** Absolute monetary ceiling (e.g. 500,000 THB). */
 	readonly ceiling?: number
-	/** Optional ISO 4217 currency code for major/minor conversion. */
-	readonly currency?: CurrencyCode
+	/** Optional supported currency (THB or USD) for major/minor conversion. */
+	readonly currency?: TaxSupportedCurrency
 	/** Diagnostic field name for error reporting. */
 	readonly field?: string
 }
