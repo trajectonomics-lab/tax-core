@@ -23,6 +23,7 @@ export const US_2026_STATE_WV: UsStateParameters = defineState({
 		[40_000, 0.0444],
 		[60_000, 0.0482],
 	],
+	mfs: "half-mfj",
 	std: [0, 0],
 	personalExemption: [2000, 4000],
 	dependentExemption: 2_000,

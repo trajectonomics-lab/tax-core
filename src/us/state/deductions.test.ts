@@ -47,8 +47,8 @@ describe("calculateUsStateDeductions", () => {
 			US_2026_STATE_PARAMETERS.CA,
 			"USD",
 		)
-		expect(credit.dependentCreditCents).toBe(cents(950))
-		expect(credit.personalCreditCents).toBe(cents(153))
+		expect(credit.dependentCreditCents).toBe(cents(982))
+		expect(credit.personalCreditCents).toBe(cents(158))
 	})
 
 	it("floors taxable income at zero", () => {

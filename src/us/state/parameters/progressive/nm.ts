@@ -25,6 +25,8 @@ export const US_2026_STATE_NM: UsStateParameters = defineState({
 		[100_000, 0.049],
 		[315_000, 0.059],
 	],
+	mfs: "half-mfj",
+	hoh: "mfj",
 	std: [16100, 32200],
 	dependentExemption: 4_000,
 })

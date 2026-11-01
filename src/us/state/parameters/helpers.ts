@@ -38,11 +38,12 @@ function exemptionAmounts(
 	single: number,
 	mfj: number,
 	hoh: number | undefined,
+	mfs: number | undefined = undefined,
 ): Record<UsFilingStatus, number> {
 	return {
 		single,
 		married_filing_jointly: mfj,
-		married_filing_separately: single,
+		married_filing_separately: mfs ?? single,
 		head_of_household: hoh ?? single,
 	}
 }
@@ -86,6 +87,7 @@ export function defineState(def: UsStateDefinition): UsStateParameters {
 			personalExemption[0],
 			personalExemption[1],
 			personalExemption[2],
+			def.personalExemptionMfs,
 		),
 		personalCredit: exemptionAmounts(personalCredit[0], personalCredit[1], personalCredit[2]),
 		dependentExemption: def.dependentExemption ?? 0,

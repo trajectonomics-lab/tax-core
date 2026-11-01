@@ -25,7 +25,7 @@ export const US_2026_STATE_DE: UsStateParameters = defineState({
 		[25_000, 0.0555],
 		[60_000, 0.066],
 	],
-	std: [3250, 6500],
+	std: [3250, 6500, 3250],
 	personalCredit: [110, 220],
 	dependentCredit: 110,
 })

@@ -17,7 +17,7 @@ export const US_2026_STATE_KS: UsStateParameters = defineState({
 		[0, 0.052],
 		[46_000, 0.0558],
 	],
-	std: [3605, 8240, 6_000],
+	std: [3605, 8240, 6180],
 	personalExemption: [9160, 18320],
 	dependentExemption: 2_320,
 })

@@ -47,6 +47,73 @@ const EXTENDED_EXAMPLES: readonly WorkedExample[] = [
 
 const FILING_STATUS_EXAMPLES: readonly WorkedExample[] = [
 	{
+		// Connecticut HoH schedule: 81,000 taxable after the 19,000 exemption.
+		// 16,000 x 2% + 64,000 x 4.5% + 1,000 x 5.5%.
+		state: "CT",
+		wages: 100_000,
+		expectedTax: 3255,
+		label: "CT head of household schedule",
+		filingStatus: "head_of_household",
+	},
+	{
+		// Connecticut separate filers: 12,000 exemption, 88,000 taxable on the single schedule.
+		state: "CT",
+		wages: 100_000,
+		expectedTax: 4090,
+		label: "CT separate return exemption",
+		filingStatus: "married_filing_separately",
+	},
+	{
+		// Maryland HoH uses the joint schedule and 6,700 deduction: 90,100 taxable after 3,200.
+		state: "MD",
+		wages: 100_000,
+		expectedTax: 4227.25,
+		label: "MD head of household on the joint schedule",
+		filingStatus: "head_of_household",
+	},
+	{
+		// New Mexico MFS: half the joint thresholds, 83,900 taxable after the 16,100 deduction.
+		state: "NM",
+		wages: 100_000,
+		expectedTax: 3705.6,
+		label: "NM separate return on half-joint thresholds",
+		filingStatus: "married_filing_separately",
+	},
+	{
+		// North Dakota HoH table: 75,850 taxable; 1.95% x (75,850 - 64,950).
+		state: "ND",
+		wages: 100_000,
+		expectedTax: 212.55,
+		label: "ND head of household table",
+		filingStatus: "head_of_household",
+	},
+	{
+		// West Virginia MFS thresholds are half the joint amounts: 98,000 taxable.
+		state: "WV",
+		wages: 100_000,
+		expectedTax: 4304.35,
+		label: "WV separate return on half thresholds",
+		filingStatus: "married_filing_separately",
+	},
+	{
+		// Vermont MFS thresholds are half the joint amounts: 87,050 taxable.
+		// 41,250 x 3.35% + 45,800 x 6.6%.
+		state: "VT",
+		wages: 100_000,
+		expectedTax: 4404.675,
+		label: "VT separate return on half-joint thresholds",
+		filingStatus: "married_filing_separately",
+		precision: 1,
+	},
+	{
+		// Utah dependents add 6% x 2,111 = 126.66 each to the credit: 4.5% x 100,000 - 966 - 126.66.
+		state: "UT",
+		wages: 100_000,
+		expectedTax: 3407.34,
+		label: "UT dependent credit base",
+		dependents: 1,
+	},
+	{
 		// Missouri combined return taxes each spouse's half separately: doubled thresholds.
 		// 17,800 taxable: 53.92 + 67.40 + 80.88 + 94.36 + 107.84 + 4.5% x 1,624.
 		state: "MO",
@@ -119,14 +186,14 @@ const WORKED_EXAMPLES: ReadonlyArray<readonly [UsStateCode, number, number, stri
 	["CO", 100_000, 3691.6, "CO flat after federal-linked standard deduction"],
 	// Ohio: 2.75% x (97,642 - 26,050) after the $2,400 exemption and zero bracket.
 	["OH", 100_042, 1968.78, "OH flat above the zero bracket"],
-	// California: 5,207.98 bracket tax on 94,294 taxable (5,706 deduction) less the $153 credit.
-	["CA", 100_000, 5054.98, "CA nine-tier schedule less personal credit"],
+	// California 2026: 5,068.86 bracket tax on 94,100 taxable (5,900 deduction) less the $158 credit.
+	["CA", 100_000, 4910.86, "CA nine-tier schedule less personal credit"],
 	// Arizona: 2.5% x (100,000 - 16,100 federal-conforming standard deduction).
 	["AZ", 100_000, 2097.5, "AZ flat after federal-conforming standard deduction"],
 	// South Carolina: 3% x (18,230 - 3,640) + 6% x (83,900 - 18,230) after the 16,100 deduction.
 	["SC", 100_000, 4377.9, "SC three-tier schedule after federal-conforming deduction"],
-	// Maine: 40,000 taxable (15,300 deduction, 5,300 exemption): 1,589.20 + 850.50.
-	["ME", 60_600, 2439.7, "ME two-tier schedule after official 2026 deduction"],
+	// Maine: 40,000 taxable (15,700 deduction, 5,300 exemption): 1,589.20 + 850.50.
+	["ME", 61_000, 2439.7, "ME two-tier schedule after official 2026 deduction"],
 	// New York: 4,859.75 bracket tax on 92,000 taxable.
 	["NY", 100_000, 4859.75, "NY graduated schedule"],
 ]

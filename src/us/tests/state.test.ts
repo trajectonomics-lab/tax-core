@@ -82,12 +82,12 @@ describe("US State Income Tax Stage", () => {
 
 	it("computes progressive brackets and personal/dependent credits", () => {
 		const result = calculate("CA", 100_000, { dependents: 1 })
-		expect(result.breakdown?.taxableIncome).toBe(usd(94_294))
-		expect(result.breakdown?.bracketTax).toBe(usd(5_207.98))
-		expect(result.breakdown?.credits.personal).toBe(usd(153))
-		expect(result.breakdown?.credits.dependent).toBe(usd(475))
-		expect(result.breakdown?.credits.claimedNonRefundable).toBe(usd(628))
-		expect(result.totalTaxCents).toBe(457_998)
+		expect(result.breakdown?.taxableIncome).toBe(usd(94_100))
+		expect(result.breakdown?.bracketTax).toBe(usd(5_068.86))
+		expect(result.breakdown?.credits.personal).toBe(usd(158))
+		expect(result.breakdown?.credits.dependent).toBe(usd(491))
+		expect(result.breakdown?.credits.claimedNonRefundable).toBe(usd(649))
+		expect(result.totalTaxCents).toBe(441_986)
 		expect(result.breakdown?.marginalRate).toBe(0.093)
 		expect(result.breakdown?.slices.length).toBe(US_2026_STATE_PARAMETERS.CA.brackets.single.length)
 	})
@@ -104,8 +104,8 @@ describe("US State Income Tax Stage", () => {
 
 	it("adds the California mental health surtax above one million dollars", () => {
 		const result = calculate("CA", 2_000_000)
-		expect(result.breakdown?.taxableIncome).toBe(usd(1_994_294))
-		expect(result.breakdown?.surtax).toBe(usd(9_942.94))
+		expect(result.breakdown?.taxableIncome).toBe(usd(1_994_100))
+		expect(result.breakdown?.surtax).toBe(usd(9_941))
 		expect(result.breakdown?.marginalRate).toBe(0.133)
 	})
 
@@ -133,8 +133,8 @@ describe("US State Income Tax Stage", () => {
 
 	it("uses head-of-household brackets and standard deduction", () => {
 		const result = calculate("CA", 120_000, { filingStatus: "head_of_household" })
-		expect(result.breakdown?.standardDeduction).toBe(usd(11_412))
-		expect(result.breakdown?.taxableIncome).toBe(usd(108_588))
+		expect(result.breakdown?.standardDeduction).toBe(usd(11_800))
+		expect(result.breakdown?.taxableIncome).toBe(usd(108_200))
 		expect(result.breakdown?.marginalRate).toBeGreaterThan(0)
 	})
 })

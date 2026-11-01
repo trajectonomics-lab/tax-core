@@ -28,6 +28,8 @@ export interface UsStateDefinition {
 	/** Married-filing-separately standard deduction when it is not half the joint amount. */
 	readonly stdMfs?: number
 	readonly personalExemption?: readonly [single: number, mfj: number, hoh?: number]
+	/** Married-filing-separately personal exemption when it differs from the single amount. */
+	readonly personalExemptionMfs?: number
 	readonly personalCredit?: readonly [single: number, mfj: number, hoh?: number]
 	readonly dependentExemption?: number
 	readonly dependentCredit?: number

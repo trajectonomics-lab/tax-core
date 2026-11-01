@@ -18,7 +18,7 @@ const KENTUCKY: UsStateParameters = defineState({
 /**
  * 2026 Massachusetts individual income tax parameters.
  *
- * 4% millionaire surtax on taxable income above $1,083,150.
+ * 4% millionaire surtax on taxable income above $1,107,750.
  *
  * @statute Mass. Gen. Laws ch. 62, § 4
  */
@@ -111,7 +111,7 @@ const UTAH: UsStateParameters = defineState({
 	mfj: [[0, 0.045]],
 	std: [0, 0],
 	personalCredit: [966, 1932, 1449],
-	dependentExemption: 2_111,
+	dependentCredit: 126.66,
 })
 
 const STATES: readonly UsStateParameters[] = [
