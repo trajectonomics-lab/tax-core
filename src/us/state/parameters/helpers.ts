@@ -24,11 +24,12 @@ function standardAmounts(
 	single: number,
 	mfj: number,
 	hoh: number | undefined,
+	mfs: number | undefined,
 ): Record<UsFilingStatus, number> {
 	return {
 		single,
 		married_filing_jointly: mfj,
-		married_filing_separately: mfj === single ? single : Math.round(mfj / 2),
+		married_filing_separately: mfs ?? (mfj === single ? single : Math.round(mfj / 2)),
 		head_of_household: hoh ?? (single > 0 ? Math.round(single * 1.5) : 0),
 	}
 }
@@ -44,6 +45,11 @@ function exemptionAmounts(
 		married_filing_separately: single,
 		head_of_household: hoh ?? single,
 	}
+}
+
+function resolveMfsTiers(def: UsStateDefinition): UsStateBracketTiers {
+	if (def.mfs === "half-mfj") return def.mfj.map(([lower, rate]) => [lower / 2, rate] as const)
+	return def.mfs ?? def.single
 }
 
 function resolveHohTiers(def: UsStateDefinition): UsStateBracketTiers {
@@ -72,10 +78,10 @@ export function defineState(def: UsStateDefinition): UsStateParameters {
 		brackets: {
 			single: tiersToBrackets(def.single),
 			married_filing_jointly: tiersToBrackets(def.mfj),
-			married_filing_separately: tiersToBrackets(def.single),
+			married_filing_separately: tiersToBrackets(resolveMfsTiers(def)),
 			head_of_household: tiersToBrackets(resolveHohTiers(def)),
 		},
-		standardDeduction: standardAmounts(def.std[0], def.std[1], def.std[2]),
+		standardDeduction: standardAmounts(def.std[0], def.std[1], def.std[2], def.stdMfs),
 		personalExemption: exemptionAmounts(
 			personalExemption[0],
 			personalExemption[1],

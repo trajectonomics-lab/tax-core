@@ -43,5 +43,6 @@ export const US_2026_STATE_NY: UsStateParameters = defineState({
 		[25_000_000, 0.109],
 	],
 	std: [8000, 16050, 11200],
+	stdMfs: 8000,
 	dependentExemption: 1_000,
 })

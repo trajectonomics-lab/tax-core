@@ -82,12 +82,12 @@ describe("US State Income Tax Stage", () => {
 
 	it("computes progressive brackets and personal/dependent credits", () => {
 		const result = calculate("CA", 100_000, { dependents: 1 })
-		expect(result.breakdown?.taxableIncome).toBe(usd(94_460))
-		expect(result.breakdown?.bracketTax).toBe(usd(5_223.42))
+		expect(result.breakdown?.taxableIncome).toBe(usd(94_294))
+		expect(result.breakdown?.bracketTax).toBe(usd(5_207.98))
 		expect(result.breakdown?.credits.personal).toBe(usd(153))
-		expect(result.breakdown?.credits.dependent).toBe(usd(153))
-		expect(result.breakdown?.credits.claimedNonRefundable).toBe(usd(306))
-		expect(result.totalTaxCents).toBe(491_742)
+		expect(result.breakdown?.credits.dependent).toBe(usd(475))
+		expect(result.breakdown?.credits.claimedNonRefundable).toBe(usd(628))
+		expect(result.totalTaxCents).toBe(457_998)
 		expect(result.breakdown?.marginalRate).toBe(0.093)
 		expect(result.breakdown?.slices.length).toBe(US_2026_STATE_PARAMETERS.CA.brackets.single.length)
 	})
@@ -96,16 +96,16 @@ describe("US State Income Tax Stage", () => {
 		const result = calculate("MA", 2_000_000)
 		expect(result.breakdown?.taxableIncome).toBe(usd(1_995_600))
 		expect(result.breakdown?.bracketTax).toBe(usd(99_780))
-		expect(result.breakdown?.surtax).toBe(usd(36_498))
-		expect(result.breakdown?.taxBeforeCredits).toBe(usd(136_278))
-		expect(result.totalTaxCents).toBe(13_627_800)
+		expect(result.breakdown?.surtax).toBe(usd(35_514))
+		expect(result.breakdown?.taxBeforeCredits).toBe(usd(135_294))
+		expect(result.totalTaxCents).toBe(13_529_400)
 		expect(result.breakdown?.marginalRate).toBe(0.09)
 	})
 
 	it("adds the California mental health surtax above one million dollars", () => {
 		const result = calculate("CA", 2_000_000)
-		expect(result.breakdown?.taxableIncome).toBe(usd(1_994_460))
-		expect(result.breakdown?.surtax).toBe(usd(9_944.6))
+		expect(result.breakdown?.taxableIncome).toBe(usd(1_994_294))
+		expect(result.breakdown?.surtax).toBe(usd(9_942.94))
 		expect(result.breakdown?.marginalRate).toBe(0.133)
 	})
 
@@ -126,15 +126,15 @@ describe("US State Income Tax Stage", () => {
 
 	it("uses the married-filing-separately standard deduction and single brackets", () => {
 		const result = calculate("NY", 100_000, { filingStatus: "married_filing_separately" })
-		expect(result.breakdown?.standardDeduction).toBe(usd(8_025))
-		expect(result.breakdown?.taxableIncome).toBe(usd(91_975))
+		expect(result.breakdown?.standardDeduction).toBe(usd(8_000))
+		expect(result.breakdown?.taxableIncome).toBe(usd(92_000))
 		expect(result.breakdown?.marginalRate).toBe(0.059)
 	})
 
 	it("uses head-of-household brackets and standard deduction", () => {
 		const result = calculate("CA", 120_000, { filingStatus: "head_of_household" })
-		expect(result.breakdown?.standardDeduction).toBe(usd(11_080))
-		expect(result.breakdown?.taxableIncome).toBe(usd(108_920))
+		expect(result.breakdown?.standardDeduction).toBe(usd(11_412))
+		expect(result.breakdown?.taxableIncome).toBe(usd(108_588))
 		expect(result.breakdown?.marginalRate).toBeGreaterThan(0)
 	})
 })

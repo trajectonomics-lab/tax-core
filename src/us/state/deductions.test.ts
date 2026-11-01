@@ -47,7 +47,7 @@ describe("calculateUsStateDeductions", () => {
 			US_2026_STATE_PARAMETERS.CA,
 			"USD",
 		)
-		expect(credit.dependentCreditCents).toBe(cents(306))
+		expect(credit.dependentCreditCents).toBe(cents(950))
 		expect(credit.personalCreditCents).toBe(cents(153))
 	})
 

@@ -2,7 +2,6 @@
  * Diagnostic and reporting field identifiers for state income tax calculations.
  */
 export enum UsStateField {
-	Code = "state.code",
 	BracketBound = "state.bracketBound",
 	Agi = "state.agi",
 	StandardDeduction = "state.standardDeduction",
@@ -11,6 +10,7 @@ export enum UsStateField {
 	TaxableIncome = "state.taxableIncome",
 	BracketTax = "state.bracketTax",
 	Surtax = "state.surtax",
+	SurtaxThreshold = "state.surtaxThreshold",
 	CreditsPersonal = "state.credits.personal",
 	CreditsDependent = "state.credits.dependent",
 	CreditsClaimedNonRefundable = "state.credits.claimedNonRefundable",

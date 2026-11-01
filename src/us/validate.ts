@@ -30,6 +30,17 @@ function checkNonNegativeInt(field: string, val: number | undefined): void {
 	}
 }
 
+function validateNoOrphanStateInputs(input: UsTaxInput): void {
+	const orphan = [
+		["stateDependents", input.stateDependents],
+		["stateWithholding", input.stateWithholding],
+		["stateCredits", input.stateCredits],
+	].find(([, value]) => value !== undefined)
+	if (orphan) {
+		throw new TaxValidationError(String(orphan[0]), orphan[1], "Requires a `state` code")
+	}
+}
+
 function validateStateCreditsInput(credits: UsStateCreditsInput | undefined): void {
 	if (!credits) return
 	checkNonNegative("stateCredits.nonRefundable", credits.nonRefundable)
@@ -80,6 +91,7 @@ export function validateUsInput(input: UsTaxInput): void {
 	if (input.state !== undefined && !US_STATE_CODES.includes(input.state)) {
 		throw new TaxValidationError("state", input.state, "Unsupported US state code")
 	}
+	if (input.state === undefined) validateNoOrphanStateInputs(input)
 	checkNonNegativeInt("stateDependents", input.stateDependents)
 	checkNonNegative("stateWithholding", input.stateWithholding)
 	validateStateCreditsInput(input.stateCredits)

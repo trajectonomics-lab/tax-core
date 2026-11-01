@@ -20,9 +20,13 @@ export interface UsStateDefinition {
 	readonly type: UsStateTaxType
 	readonly single: UsStateBracketTiers
 	readonly mfj: UsStateBracketTiers
+	/** Explicit separate-filer tiers, or "half-mfj" when the state halves its joint thresholds. */
+	readonly mfs?: UsStateBracketTiers | "half-mfj"
 	/** Explicit head-of-household tiers, or "mfj" when the state applies its joint schedule. */
 	readonly hoh?: UsStateBracketTiers | "mfj"
 	readonly std: readonly [single: number, mfj: number, hoh?: number]
+	/** Married-filing-separately standard deduction when it is not half the joint amount. */
+	readonly stdMfs?: number
 	readonly personalExemption?: readonly [single: number, mfj: number, hoh?: number]
 	readonly personalCredit?: readonly [single: number, mfj: number, hoh?: number]
 	readonly dependentExemption?: number

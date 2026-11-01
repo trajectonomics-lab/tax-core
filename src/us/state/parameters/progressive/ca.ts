@@ -44,8 +44,8 @@ export const US_2026_STATE_CA: UsStateParameters = defineState({
 		[606_251, 0.113],
 		[1_010_417, 0.123],
 	],
-	std: [5540, 11080, 11080],
+	std: [5706, 11412, 11412],
 	personalCredit: [153, 306],
-	dependentCredit: 153,
+	dependentCredit: 475,
 	surtax: { threshold: 1_000_000, rate: 0.01 },
 })

@@ -20,9 +20,9 @@ describe("calculateUsStateSurtax", () => {
 		expect(result.active).toBe(true)
 	})
 
-	it("is inactive exactly at the threshold", () => {
+	it("is active exactly at the threshold because the next dollar is surtaxed", () => {
 		const result = calculateUsStateSurtax(toMinorUnits(1_083_150, "USD"), MA_SURTAX, "USD")
-		expect(result).toEqual({ taxCents: 0, rate: 0.04, active: false })
+		expect(result).toEqual({ taxCents: 0, rate: 0.04, active: true })
 	})
 
 	it("is inactive below the threshold", () => {

@@ -28,11 +28,11 @@ export function calculateUsStateSurtax(
 	currency: TaxSupportedCurrency,
 ): UsStateSurtaxResult {
 	if (!surtax) return { taxCents: 0, rate: 0, active: false }
-	const thresholdCents = toMinorUnits(surtax.threshold, currency, UsStateField.Surtax)
+	const thresholdCents = toMinorUnits(surtax.threshold, currency, UsStateField.SurtaxThreshold)
 	const baseCents = Math.max(0, taxableIncomeCents - thresholdCents)
 	return {
 		taxCents: applyPercentage(baseCents, surtax.rate),
 		rate: surtax.rate,
-		active: baseCents > 0,
+		active: taxableIncomeCents >= thresholdCents,
 	}
 }

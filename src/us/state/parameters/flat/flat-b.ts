@@ -31,7 +31,7 @@ const MASSACHUSETTS: UsStateParameters = defineState({
 	std: [0, 0],
 	personalExemption: [4400, 8800, 6_800],
 	dependentExemption: 1_000,
-	surtax: { threshold: 1_083_150, rate: 0.04 },
+	surtax: { threshold: 1_107_750, rate: 0.04 },
 })
 
 /**
@@ -109,8 +109,8 @@ const UTAH: UsStateParameters = defineState({
 	type: "flat",
 	single: [[0, 0.045]],
 	mfj: [[0, 0.045]],
-	std: [16100, 32200],
-	personalCredit: [966, 1932],
+	std: [0, 0],
+	personalCredit: [966, 1932, 1449],
 	dependentExemption: 2_111,
 })
 

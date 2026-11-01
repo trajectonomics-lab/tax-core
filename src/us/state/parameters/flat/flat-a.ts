@@ -43,7 +43,7 @@ const GEORGIA: UsStateParameters = defineState({
 	type: "flat",
 	single: [[0, 0.0519]],
 	mfj: [[0, 0.0519]],
-	std: [12000, 24000],
+	std: [12000, 24000, 12000],
 	dependentExemption: 4_000,
 })
 

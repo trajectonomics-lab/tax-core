@@ -16,8 +16,8 @@ export const US_2026_STATE_ME: UsStateParameters = defineState({
 	],
 	mfj: [
 		[0, 0.058],
-		[54_849, 0.0675],
-		[129_749, 0.0715],
+		[54_850, 0.0675],
+		[129_750, 0.0715],
 	],
 	hoh: [
 		[0, 0.058],

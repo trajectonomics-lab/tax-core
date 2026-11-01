@@ -102,4 +102,16 @@ describe("US State Tax Integration", () => {
 			}),
 		).toThrow(TaxValidationError)
 	})
+
+	it("rejects state-only inputs when no state is selected", () => {
+		for (const extra of [
+			{ stateWithholding: 1_000 },
+			{ stateDependents: 1 },
+			{ stateCredits: { refundable: 10 } },
+		]) {
+			expect(() =>
+				calculateUsTax({ filingStatus: "single", income: { w2Wages: 50_000 }, ...extra }),
+			).toThrow(TaxValidationError)
+		}
+	})
 })

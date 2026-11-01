@@ -10,6 +10,8 @@ import type { UsDeductionsStageResult } from "./deductions"
  * @param deductions Deduction stage result carrying the elected method and Schedule A.
  * @param currency Supported statutory currency threaded for minor-unit conversion.
  * @returns Allowed SALT deduction in integer cents (0 unless itemizing).
+ * @throws {TaxValidationError} if the allowed SALT amount is not representable as cents.
+ * @statute IRC § 56(b)(1)(A)(ii)
  */
 export function resolveAmtSaltCents(
 	deductions: UsDeductionsStageResult,

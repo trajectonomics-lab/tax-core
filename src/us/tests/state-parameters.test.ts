@@ -78,7 +78,7 @@ describe("US State Parameter Registry", () => {
 	})
 
 	it("models the Massachusetts millionaire surtax and California mental health surtax", () => {
-		expect(US_2026_STATE_PARAMETERS.MA.surtax).toEqual({ threshold: 1_083_150, rate: 0.04 })
+		expect(US_2026_STATE_PARAMETERS.MA.surtax).toEqual({ threshold: 1_107_750, rate: 0.04 })
 		expect(US_2026_STATE_PARAMETERS.CA.surtax).toEqual({ threshold: 1_000_000, rate: 0.01 })
 	})
 

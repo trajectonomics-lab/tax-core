@@ -13,6 +13,8 @@ interface WorkedExample {
 	readonly label: string
 	readonly filingStatus?: UsFilingStatus
 	readonly dependents?: number
+	/** Decimal places for toBeCloseTo; 1 for half-cent rounding ties in the hand computation. */
+	readonly precision?: number
 }
 
 const EXTENDED_EXAMPLES: readonly WorkedExample[] = [
@@ -26,10 +28,10 @@ const EXTENDED_EXAMPLES: readonly WorkedExample[] = [
 		dependents: 2,
 	},
 	{
-		// Massachusetts: 5% x 1,195,600 + 4% x (1,195,600 - 1,083,150) after the 4,400 exemption.
+		// Massachusetts: 5% x 1,195,600 + 4% x (1,195,600 - 1,107,750) after the 4,400 exemption.
 		state: "MA",
 		wages: 1_200_000,
-		expectedTax: 64_278,
+		expectedTax: 63_294,
 		label: "MA millionaire surtax",
 	},
 	{
@@ -43,6 +45,71 @@ const EXTENDED_EXAMPLES: readonly WorkedExample[] = [
 	},
 ]
 
+const FILING_STATUS_EXAMPLES: readonly WorkedExample[] = [
+	{
+		// Missouri combined return taxes each spouse's half separately: doubled thresholds.
+		// 17,800 taxable: 53.92 + 67.40 + 80.88 + 94.36 + 107.84 + 4.5% x 1,624.
+		state: "MO",
+		wages: 50_000,
+		expectedTax: 477.48,
+		label: "MO joint return on doubled thresholds",
+		filingStatus: "married_filing_jointly",
+	},
+	{
+		// Minnesota MFS thresholds are half the joint table: 84,700 taxable after 15,300 deduction.
+		// 24,350 x 5.35% + 60,350 x 6.8%.
+		state: "MN",
+		wages: 100_000,
+		expectedTax: 5406.525,
+		label: "MN separate return on half-joint thresholds",
+		filingStatus: "married_filing_separately",
+		precision: 1,
+	},
+	{
+		// Wisconsin MFS thresholds are half the joint table: 86,380 taxable.
+		// 10,075 x 3.5% + 24,555 x 4.4% + 51,750 x 5.3%.
+		state: "WI",
+		wages: 100_000,
+		expectedTax: 4175.795,
+		label: "WI separate return on half-joint thresholds",
+		filingStatus: "married_filing_separately",
+		precision: 1,
+	},
+	{
+		// Minnesota head of household: 77,000 taxable after the 23,000 deduction.
+		// 41,010 x 5.35% + 35,990 x 6.8%.
+		state: "MN",
+		wages: 100_000,
+		expectedTax: 4641.355,
+		label: "MN head of household table",
+		filingStatus: "head_of_household",
+		precision: 1,
+	},
+	{
+		// Utah has no deduction; the credit is 6% of the federal standard deduction (24,150 HoH).
+		state: "UT",
+		wages: 100_000,
+		expectedTax: 3051,
+		label: "UT head of household credit",
+		filingStatus: "head_of_household",
+	},
+	{
+		// Utah single: 4.5% x 100,000 less the 966 credit.
+		state: "UT",
+		wages: 100_000,
+		expectedTax: 3534,
+		label: "UT single credit",
+	},
+	{
+		// New York separate filers use the single 8,000 deduction: 92,000 taxable.
+		state: "NY",
+		wages: 100_000,
+		expectedTax: 4859.75,
+		label: "NY separate return deduction",
+		filingStatus: "married_filing_separately",
+	},
+]
+
 const WORKED_EXAMPLES: ReadonlyArray<readonly [UsStateCode, number, number, string]> = [
 	// Missouri: 83,900 taxable; 262.86 across the lower tiers + 4.7% x 74,464.
 	["MO", 100_000, 3762.67, "MO progressive after the $1,348 zero tier"],
@@ -52,8 +119,8 @@ const WORKED_EXAMPLES: ReadonlyArray<readonly [UsStateCode, number, number, stri
 	["CO", 100_000, 3691.6, "CO flat after federal-linked standard deduction"],
 	// Ohio: 2.75% x (97,642 - 26,050) after the $2,400 exemption and zero bracket.
 	["OH", 100_042, 1968.78, "OH flat above the zero bracket"],
-	// California: 5,223.42 bracket tax on 94,460 taxable less the $153 exemption credit.
-	["CA", 100_000, 5070.42, "CA nine-tier schedule less personal credit"],
+	// California: 5,207.98 bracket tax on 94,294 taxable (5,706 deduction) less the $153 credit.
+	["CA", 100_000, 5054.98, "CA nine-tier schedule less personal credit"],
 	// Arizona: 2.5% x (100,000 - 16,100 federal-conforming standard deduction).
 	["AZ", 100_000, 2097.5, "AZ flat after federal-conforming standard deduction"],
 	// South Carolina: 3% x (18,230 - 3,640) + 6% x (83,900 - 18,230) after the 16,100 deduction.
@@ -79,7 +146,7 @@ describe("US state tax worked examples", () => {
 })
 
 describe("US state tax extended worked examples", () => {
-	for (const example of EXTENDED_EXAMPLES) {
+	for (const example of [...EXTENDED_EXAMPLES, ...FILING_STATUS_EXAMPLES]) {
 		it(`matches the hand-computed ${example.label}`, () => {
 			const result = calculateUsTax({
 				filingStatus: example.filingStatus ?? "single",
@@ -88,7 +155,10 @@ describe("US state tax extended worked examples", () => {
 				state: example.state,
 				...(example.dependents === undefined ? {} : { stateDependents: example.dependents }),
 			})
-			expect(result.breakdown.state?.totalTax).toBeCloseTo(example.expectedTax, 2)
+			expect(result.breakdown.state?.totalTax).toBeCloseTo(
+				example.expectedTax,
+				example.precision ?? 2,
+			)
 		})
 	}
 

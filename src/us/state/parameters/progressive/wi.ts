@@ -21,6 +21,7 @@ export const US_2026_STATE_WI: UsStateParameters = defineState({
 		[69_260, 0.053],
 		[443_630, 0.0765],
 	],
+	mfs: "half-mfj",
 	std: [13960, 25840, 17_950],
 	personalExemption: [700, 1400],
 	dependentExemption: 700,

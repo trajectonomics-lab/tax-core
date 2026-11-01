@@ -36,7 +36,7 @@ const COMMENT_LINE = /^\s*(?:\/\/|\/?\*)/
 let hasErrors = false
 
 for (const dir of STAGES_DIRS) {
-	for (const file of readdirSync(dir)) {
+	for (const file of readdirSync(dir, { recursive: true }).map(String)) {
 		if (!file.endsWith(".ts") || file.endsWith(".test.ts")) continue
 		const filePath = join(dir, file)
 		const content = readFileSync(filePath, "utf-8")
