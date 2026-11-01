@@ -19,6 +19,7 @@ export const US_2026_STATE_OK: UsStateParameters = defineState({
 		[9_800, 0.035],
 		[14_400, 0.045],
 	],
+	hoh: "mfj",
 	std: [6350, 12700],
 	personalExemption: [1000, 2000],
 	dependentExemption: 1_000,

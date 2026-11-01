@@ -18,6 +18,8 @@ export interface UsStateDeductionsResult {
  *
  * Math: taxable = max(0, AGI - standard deduction - personal exemption - dependent exemptions).
  * Units: AGI is integer cents; parameter amounts are major dollars converted to integer cents.
+ * Throws: TaxValidationError if a parameter amount or the dependent product is not a safe
+ * integer number of cents.
  *
  * @param agiCents Federal adjusted gross income in integer cents.
  * @param status Filing status.
@@ -25,6 +27,7 @@ export interface UsStateDeductionsResult {
  * @param params State statutory parameter table.
  * @param currency Supported statutory currency threaded for minor-unit conversion.
  * @returns Resolved deduction, exemption, credit, and taxable-income amounts.
+ * @statute State individual income tax statutes; see per-state parameter tables.
  */
 export function calculateUsStateDeductions(
 	agiCents: number,

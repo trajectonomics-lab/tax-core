@@ -47,7 +47,7 @@ export function buildUsTaxResult(p: BuildTaxResultParams): TaxResult<"USD", UsTa
 		taxableIncome: p.dedRes.taxableIncome,
 		totalTax: usd(fromMinorUnits(p.totalTaxCents, "USD")),
 		effectiveRate: effRate,
-		marginalRate: p.ordMarginalRate,
+		marginalRate: p.ordMarginalRate + (p.stateRes.breakdown?.marginalRate ?? 0),
 		netTaxPayable: netPayable,
 		breakdown: {
 			ordinaryGrossIncome: p.agiRes.ordinaryGrossIncome,

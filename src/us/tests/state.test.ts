@@ -2,16 +2,13 @@ import { describe, expect, it } from "bun:test"
 import { toMinorUnits, usd } from "../../core/money"
 import { calculateUsStateTax } from "../stages/state"
 import { US_2026_STATE_PARAMETERS } from "../state/parameters"
+import type { UsFilingStatus, UsStateCode } from "../types"
 
 function calculate(
-	state: string,
+	state: UsStateCode,
 	agiDollars: number,
 	options: {
-		filingStatus?:
-			| "single"
-			| "married_filing_jointly"
-			| "married_filing_separately"
-			| "head_of_household"
+		filingStatus?: UsFilingStatus
 		dependents?: number
 		withholding?: number
 		credits?: { nonRefundable?: number; refundable?: number }
@@ -19,7 +16,7 @@ function calculate(
 ) {
 	return calculateUsStateTax(
 		{
-			state: state as never,
+			state,
 			filingStatus: options.filingStatus ?? "single",
 			income: {},
 			...(options.dependents === undefined ? {} : { stateDependents: options.dependents }),

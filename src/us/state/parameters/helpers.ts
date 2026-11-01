@@ -2,10 +2,13 @@ import type { TaxBracket } from "../../../core/brackets"
 import { toMinorUnits } from "../../../core/money"
 import { US_2026_PARAMETERS } from "../../parameters"
 import type { UsFilingStatus, UsStateCode } from "../../types"
+import { UsStateField } from "../../types/state-fields"
 import type { UsStateBracketTiers, UsStateDefinition, UsStateParameters } from "./types"
 
 function tiersToBrackets(tiers: UsStateBracketTiers): readonly TaxBracket[] {
-	const bounds = tiers.map(([lower]) => toMinorUnits(lower, US_2026_PARAMETERS.currency))
+	const bounds = tiers.map(([lower]) =>
+		toMinorUnits(lower, US_2026_PARAMETERS.currency, UsStateField.BracketBound),
+	)
 	const brackets: TaxBracket[] = []
 	const first = bounds[0] ?? 0
 	if (first > 0) brackets.push({ upTo: first, rate: 0 })
@@ -43,6 +46,11 @@ function exemptionAmounts(
 	}
 }
 
+function resolveHohTiers(def: UsStateDefinition): UsStateBracketTiers {
+	if (def.hoh === "mfj") return def.mfj
+	return def.hoh ?? def.single
+}
+
 /**
  * Builds a complete state parameter table from a compact statutory definition.
  *
@@ -65,7 +73,7 @@ export function defineState(def: UsStateDefinition): UsStateParameters {
 			single: tiersToBrackets(def.single),
 			married_filing_jointly: tiersToBrackets(def.mfj),
 			married_filing_separately: tiersToBrackets(def.single),
-			head_of_household: tiersToBrackets(def.hoh ?? def.single),
+			head_of_household: tiersToBrackets(resolveHohTiers(def)),
 		},
 		standardDeduction: standardAmounts(def.std[0], def.std[1], def.std[2]),
 		personalExemption: exemptionAmounts(

@@ -21,6 +21,7 @@ export const US_2026_STATE_OR: UsStateParameters = defineState({
 		[22_800, 0.0875],
 		[250_000, 0.099],
 	],
+	hoh: "mfj",
 	std: [2910, 5820, 4_420],
 	personalCredit: [256, 512],
 	dependentCredit: 256,

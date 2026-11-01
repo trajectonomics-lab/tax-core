@@ -15,7 +15,16 @@ import { calculateUsStateTax } from "./stages/state"
 import type { UsTaxBreakdown, UsTaxInput } from "./types"
 import { validateUsInput } from "./validate"
 
-/** Executes the 2026 US federal, payroll, and state income tax pipeline. @statute IRC § 1 et seq. */
+/**
+ * Executes the 2026 US federal, payroll, and optional state income tax pipeline.
+ *
+ * Purpose: Chains federal AGI, deductions, brackets, AMT, NIIT, payroll, credits, and the
+ * state stage into one result.
+ * Units: Inputs and outputs are major USD; internal arithmetic uses integer cents.
+ * Throws: TaxValidationError if any input is invalid.
+ *
+ * @statute IRC § 1 et seq.; state individual income tax statutes.
+ */
 export function executeUsTaxCalculation(input: UsTaxInput): TaxResult<"USD", UsTaxBreakdown> {
 	validateUsInput(input)
 	const seRes = calculateUsScheduleSe(input.income, US_2026_PARAMETERS)

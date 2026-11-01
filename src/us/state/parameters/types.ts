@@ -20,7 +20,8 @@ export interface UsStateDefinition {
 	readonly type: UsStateTaxType
 	readonly single: UsStateBracketTiers
 	readonly mfj: UsStateBracketTiers
-	readonly hoh?: UsStateBracketTiers
+	/** Explicit head-of-household tiers, or "mfj" when the state applies its joint schedule. */
+	readonly hoh?: UsStateBracketTiers | "mfj"
 	readonly std: readonly [single: number, mfj: number, hoh?: number]
 	readonly personalExemption?: readonly [single: number, mfj: number, hoh?: number]
 	readonly personalCredit?: readonly [single: number, mfj: number, hoh?: number]

@@ -10,7 +10,7 @@ Pure, deterministic statutory tax calculation engine with subpaths for Thailand 
 - Sixteen flat-rate states (including `LA` and `OH`, which are single-rate in 2026) and twenty-five graduated-rate states plus `DC` use their 2026 standard deductions, personal/dependent exemptions, and statutory bracket tables.
 - `MA` includes the 4% millionaire surtax and `CA` includes the 1% mental health services surtax.
 - State inputs also include `stateDependents`, `stateWithholding`, and `stateCredits` (`nonRefundable` / `refundable`).
-- State calculations start from federal AGI and apply the state standard deduction, personal/dependent exemptions or credits, and the state bracket table. Local/city income taxes, state itemized deductions, and income-tested phase-outs not encoded in the parameter tables are out of scope.
+- State calculations start from federal AGI and apply the state standard deduction, personal/dependent exemptions or credits, and the state bracket table. Top-level `marginalRate` is the federal ordinary rate plus the state marginal rate. Head-of-household uses the state's joint schedule in `NJ`, `OR`, and `OK` and the single schedule elsewhere unless a dedicated table is encoded (`CA`, `MN`, `NY`, `ME`); head-of-household and separate-filer standard deductions outside the federal-conforming states are derived (1.5x single, joint/2). Local/city income taxes, state itemized deductions, and income-tested phase-outs not encoded in the parameter tables are out of scope.
 
 ## Commands
 

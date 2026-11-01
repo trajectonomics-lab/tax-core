@@ -18,6 +18,8 @@ export interface UsStateCreditsResult {
  * Math: non-refundable credits are capped at tax before credits; refundable credits and
  * withholding reduce net tax payable (possibly below zero).
  * Units: All amounts are integer cents; caller credit and withholding inputs are major dollars.
+ * Throws: TaxValidationError if a credit or withholding amount is negative or not representable
+ * as safe integer cents.
  *
  * @param taxBeforeCreditsCents State bracket tax plus surtax in integer cents.
  * @param personalCreditCents State personal non-refundable credit in cents.
@@ -27,6 +29,7 @@ export interface UsStateCreditsResult {
  * @param currency Supported statutory currency threaded for minor-unit conversion.
  * @returns Allowed non-refundable credits, total state tax, refundable credits,
  * withholding, and net state tax payable in integer cents.
+ * @statute State individual income tax statutes; see per-state parameter tables.
  */
 export function calculateUsStateCredits(
 	taxBeforeCreditsCents: number,

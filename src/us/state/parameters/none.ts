@@ -1,102 +1,39 @@
+import type { UsStateCode } from "../../types"
 import { defineState } from "./helpers"
 import type { UsStateParameters } from "./types"
 
-const ALASKA: UsStateParameters = defineState({
-	code: "AK",
-	name: "Alaska",
-	type: "none",
-	single: [[0, 0]],
-	mfj: [[0, 0]],
-	std: [0, 0],
-})
-
-const FLORIDA: UsStateParameters = defineState({
-	code: "FL",
-	name: "Florida",
-	type: "none",
-	single: [[0, 0]],
-	mfj: [[0, 0]],
-	std: [0, 0],
-})
-
-const NEVADA: UsStateParameters = defineState({
-	code: "NV",
-	name: "Nevada",
-	type: "none",
-	single: [[0, 0]],
-	mfj: [[0, 0]],
-	std: [0, 0],
-})
-
-const NEW_HAMPSHIRE: UsStateParameters = defineState({
-	code: "NH",
-	name: "New Hampshire",
-	type: "none",
-	single: [[0, 0]],
-	mfj: [[0, 0]],
-	std: [0, 0],
-})
-
-const SOUTH_DAKOTA: UsStateParameters = defineState({
-	code: "SD",
-	name: "South Dakota",
-	type: "none",
-	single: [[0, 0]],
-	mfj: [[0, 0]],
-	std: [0, 0],
-})
-
-const TENNESSEE: UsStateParameters = defineState({
-	code: "TN",
-	name: "Tennessee",
-	type: "none",
-	single: [[0, 0]],
-	mfj: [[0, 0]],
-	std: [0, 0],
-})
-
-const TEXAS: UsStateParameters = defineState({
-	code: "TX",
-	name: "Texas",
-	type: "none",
-	single: [[0, 0]],
-	mfj: [[0, 0]],
-	std: [0, 0],
-})
-
-const WASHINGTON: UsStateParameters = defineState({
-	code: "WA",
-	name: "Washington",
-	type: "none",
-	single: [[0, 0]],
-	mfj: [[0, 0]],
-	std: [0, 0],
-})
-
-const WYOMING: UsStateParameters = defineState({
-	code: "WY",
-	name: "Wyoming",
-	type: "none",
-	single: [[0, 0]],
-	mfj: [[0, 0]],
-	std: [0, 0],
-})
-
-const STATES: readonly UsStateParameters[] = [
-	ALASKA,
-	FLORIDA,
-	NEVADA,
-	NEW_HAMPSHIRE,
-	SOUTH_DAKOTA,
-	TENNESSEE,
-	TEXAS,
-	WASHINGTON,
-	WYOMING,
-]
+/**
+ * Builds the zero-rate parameter table for a state with no 2026 wage income tax.
+ *
+ * Units: All amounts are zero major dollars.
+ */
+function noTaxState(code: UsStateCode, name: string): UsStateParameters {
+	return defineState({
+		code,
+		name,
+		type: "none",
+		single: [[0, 0]],
+		mfj: [[0, 0]],
+		std: [0, 0],
+	})
+}
 
 /**
  * Statutory parameter table for the nine states with no 2026 wage income tax.
  *
+ * Washington taxes only long-term capital gains above a high threshold, and New Hampshire and
+ * Tennessee repealed their interest and dividends taxes, so none taxes wage or ordinary income.
+ *
  * @statute State constitutions and statutes repealing or prohibiting an individual income tax.
  */
-export const NO_TAX_STATES: readonly UsStateParameters[] = STATES
+export const NO_TAX_STATES: readonly UsStateParameters[] = [
+	noTaxState("AK", "Alaska"),
+	noTaxState("FL", "Florida"),
+	noTaxState("NV", "Nevada"),
+	noTaxState("NH", "New Hampshire"),
+	noTaxState("SD", "South Dakota"),
+	noTaxState("TN", "Tennessee"),
+	noTaxState("TX", "Texas"),
+	noTaxState("WA", "Washington"),
+	noTaxState("WY", "Wyoming"),
+]

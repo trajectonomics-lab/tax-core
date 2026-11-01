@@ -3,6 +3,7 @@
  */
 export enum UsStateField {
 	Code = "state.code",
+	BracketBound = "state.bracketBound",
 	Agi = "state.agi",
 	StandardDeduction = "state.standardDeduction",
 	PersonalExemption = "state.personalExemption",
@@ -12,9 +13,11 @@ export enum UsStateField {
 	Surtax = "state.surtax",
 	CreditsPersonal = "state.credits.personal",
 	CreditsDependent = "state.credits.dependent",
+	CreditsClaimedNonRefundable = "state.credits.claimedNonRefundable",
 	CreditsNonRefundable = "state.credits.nonRefundable",
 	CreditsRefundable = "state.credits.refundable",
 	Withholding = "state.withholding",
+	TaxBeforeCredits = "state.taxBeforeCredits",
 	TotalTax = "state.totalTax",
 	NetTaxPayable = "state.netTaxPayable",
 }

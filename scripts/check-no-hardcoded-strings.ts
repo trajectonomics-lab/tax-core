@@ -4,6 +4,7 @@ import { join } from "node:path"
 const STAGES_DIRS = [
 	join(import.meta.dir, "../src/th/stages"),
 	join(import.meta.dir, "../src/us/stages"),
+	join(import.meta.dir, "../src/us/state"),
 ]
 
 const FORBIDDEN_PATTERNS: Array<{ regex: RegExp; description: string }> = [
@@ -13,7 +14,7 @@ const FORBIDDEN_PATTERNS: Array<{ regex: RegExp; description: string }> = [
 	},
 	{
 		regex:
-			/"(?:payroll|fica|amt|credits?|deductions?|adjustments?|itemized|income)\.[a-zA-Z0-9_.]+"/,
+			/"(?:payroll|fica|amt|credits?|deductions?|adjustments?|itemized|income|state)\.[a-zA-Z0-9_.]+"/,
 		description: "Hardcoded US diagnostic string (use Us*Field enum instead)",
 	},
 	{

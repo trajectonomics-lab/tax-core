@@ -28,6 +28,7 @@ export const US_2026_STATE_NJ: UsStateParameters = defineState({
 		[500_000, 0.0897],
 		[1_000_000, 0.1075],
 	],
+	hoh: "mfj",
 	std: [0, 0],
 	personalExemption: [1000, 2000],
 	dependentExemption: 1_500,

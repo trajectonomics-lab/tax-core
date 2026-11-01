@@ -55,12 +55,13 @@ export function calculateUsStateTax(
 	const evaluation = evaluateBrackets(
 		deductions.taxableIncomeCents,
 		params.brackets[filingStatus],
-		deductions.taxableIncomeCents,
+		undefined,
 		UsStateField.TaxableIncome,
 	)
 	const surtax = calculateUsStateSurtax(deductions.taxableIncomeCents, params.surtax, currency)
+	const taxBeforeCreditsCents = evaluation.totalTax + surtax.taxCents
 	const credits = calculateUsStateCredits(
-		evaluation.totalTax + surtax.taxCents,
+		taxBeforeCreditsCents,
 		deductions.personalCreditCents,
 		deductions.dependentCreditCents,
 		input.stateCredits,
@@ -81,13 +82,8 @@ export function calculateUsStateTax(
 			deductions,
 			evaluation,
 			surtaxCents: surtax.taxCents,
-			taxBeforeCreditsCents: evaluation.totalTax + surtax.taxCents,
-			claimedNonRefundableCents: credits.claimedNonRefundableCents,
-			allowedNonRefundableCents: credits.allowedNonRefundableCents,
-			refundableCents: credits.refundableCents,
-			totalTaxCents: credits.totalTaxCents,
-			withholdingCents: credits.withholdingCents,
-			netTaxCents: credits.netTaxCents,
+			taxBeforeCreditsCents,
+			credits,
 			effectiveRate,
 			marginalRate,
 			currency,
