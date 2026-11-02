@@ -4,7 +4,8 @@ import type { UsStateParameters } from "../types"
 /**
  * 2026 Louisiana individual income tax parameters.
  *
- * 2025 Act 1 flattened the schedule to a single 3% tier.
+ * 2025 Act 1 flattened the schedule to a single 3% tier. Standard deduction per RIB 26-005
+ * (CPI-U estimate as of 2025-12-01; head of household equals the joint amount, R.S. 47:294).
  *
  * @statute La. Stat. Ann. § 47:32
  */
@@ -14,7 +15,7 @@ const LOUISIANA: UsStateParameters = defineState({
 	type: "flat",
 	single: [[0, 0.03]],
 	mfj: [[0, 0.03]],
-	std: [12875, 25750],
+	std: [12875, 25750, 25750],
 })
 
 /**

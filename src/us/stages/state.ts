@@ -58,7 +58,12 @@ export function calculateUsStateTax(
 		undefined,
 		UsStateField.TaxableIncome,
 	)
-	const surtax = calculateUsStateSurtax(deductions.taxableIncomeCents, params.surtax, currency)
+	const surtax = calculateUsStateSurtax(
+		deductions.taxableIncomeCents,
+		params.surtax,
+		filingStatus,
+		currency,
+	)
 	const taxBeforeCreditsCents = evaluation.totalTax + surtax.taxCents
 	const credits = calculateUsStateCredits(
 		taxBeforeCreditsCents,

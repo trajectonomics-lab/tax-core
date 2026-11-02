@@ -2,6 +2,7 @@ import { multiplySafeInteger, type TaxSupportedCurrency, toMinorUnits } from "..
 import type { UsFilingStatus } from "../types"
 import { UsStateField } from "../types/state-fields"
 import type { UsStateParameters } from "./parameters/types"
+import { applyUsStatePhaseOut } from "./phase-out"
 
 /** Resolved state standard deduction, exemptions, and personal/dependent credits in cents. */
 export interface UsStateDeductionsResult {
@@ -16,7 +17,8 @@ export interface UsStateDeductionsResult {
 /**
  * Resolves state standard deductions, personal/dependent exemptions, and credits.
  *
- * Math: taxable = max(0, AGI - standard deduction - personal exemption - dependent exemptions).
+ * Math: taxable = max(0, AGI - standard deduction - personal exemption - dependent exemptions),
+ * where the standard deduction and dependent exemptions first pass any statutory phase-out.
  * Units: AGI is integer cents; parameter amounts are major dollars converted to integer cents.
  * Throws: TaxValidationError if a parameter amount or the dependent product is not a safe
  * integer number of cents.
@@ -36,20 +38,28 @@ export function calculateUsStateDeductions(
 	params: UsStateParameters,
 	currency: TaxSupportedCurrency,
 ): UsStateDeductionsResult {
-	const standardDeductionCents = toMinorUnits(
-		params.standardDeduction[status],
+	const standardDeductionCents = applyUsStatePhaseOut(
+		toMinorUnits(params.standardDeduction[status], currency, UsStateField.StandardDeduction),
+		agiCents,
+		status,
+		params.standardDeductionPhaseOut,
 		currency,
-		UsStateField.StandardDeduction,
 	)
 	const personalExemptionCents = toMinorUnits(
 		params.personalExemption[status],
 		currency,
 		UsStateField.PersonalExemption,
 	)
-	const dependentExemptionCents = multiplySafeInteger(
-		toMinorUnits(params.dependentExemption, currency, UsStateField.DependentExemption),
-		dependents,
-		UsStateField.DependentExemption,
+	const dependentExemptionCents = applyUsStatePhaseOut(
+		multiplySafeInteger(
+			toMinorUnits(params.dependentExemption, currency, UsStateField.DependentExemption),
+			dependents,
+			UsStateField.DependentExemption,
+		),
+		agiCents,
+		status,
+		params.dependentExemptionPhaseOut,
+		currency,
 	)
 	const personalCreditCents = toMinorUnits(
 		params.personalCredit[status],

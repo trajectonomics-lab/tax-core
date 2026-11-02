@@ -4,7 +4,7 @@ import type { UsFilingStatus, UsStateCode } from "../types"
 
 /**
  * Hand-computed worked examples for values corrected against official 2026 state documents
- * (see references/SOURCES.md): the DFA Arkansas formula and Hawaii Announcement 2024-03.
+ * (see references/SOURCES.md): the DFA Arkansas formula, Hawaii Announcement 2024-03 and Louisiana RIB 26-005.
  */
 interface OfficialExample {
 	readonly state: UsStateCode
@@ -29,6 +29,15 @@ const EXAMPLES: readonly OfficialExample[] = [
 		wages: 100_000,
 		expectedTax: 4937.86,
 		label: "HI head of household with the 2026 deduction",
+		filingStatus: "head_of_household",
+	},
+	{
+		// Louisiana RIB 26-005: head of household uses the joint 25,750 deduction (not 1.5x
+		// single): 3% x (100,000 - 25,750) = 2,227.50.
+		state: "LA",
+		wages: 100_000,
+		expectedTax: 2227.5,
+		label: "LA head of household with the joint-size deduction",
 		filingStatus: "head_of_household",
 	},
 ]

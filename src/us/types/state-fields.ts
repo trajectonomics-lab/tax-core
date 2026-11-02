@@ -11,6 +11,7 @@ export enum UsStateField {
 	BracketTax = "state.bracketTax",
 	Surtax = "state.surtax",
 	SurtaxThreshold = "state.surtaxThreshold",
+	PhaseOutThreshold = "state.phaseOutThreshold",
 	CreditsPersonal = "state.credits.personal",
 	CreditsDependent = "state.credits.dependent",
 	CreditsClaimedNonRefundable = "state.credits.claimedNonRefundable",
