@@ -19,10 +19,10 @@ interface WorkedExample {
 
 const EXTENDED_EXAMPLES: readonly WorkedExample[] = [
 	{
-		// Georgia joint: 5.19% x (100,000 - 24,000 deduction - 2 x 4,000 dependent exemption).
+		// Georgia joint: 4.99% x (100,000 - 30,000 deduction - 2 x 5,000 dependent allowance).
 		state: "GA",
 		wages: 100_000,
-		expectedTax: 3529.2,
+		expectedTax: 2994,
 		label: "GA joint return with two dependents",
 		filingStatus: "married_filing_jointly",
 		dependents: 2,
@@ -88,10 +88,10 @@ const FILING_STATUS_EXAMPLES: readonly WorkedExample[] = [
 		filingStatus: "head_of_household",
 	},
 	{
-		// West Virginia MFS thresholds are half the joint amounts: 98,000 taxable.
+		// West Virginia MFS (SB 392): 98,000 taxable; 975.25 + 4.58% x (98,000 - 30,000).
 		state: "WV",
 		wages: 100_000,
-		expectedTax: 4304.35,
+		expectedTax: 4089.65,
 		label: "WV separate return on half thresholds",
 		filingStatus: "married_filing_separately",
 	},

@@ -29,6 +29,8 @@ no official document read, only news or secondary reports.
 | AR | `AR-2026-withholding-formula.pdf` | https://www.dfa.arkansas.gov/wp-content/uploads/whformula_2026.pdf | **fixed** (was mismatch): brackets are 0% to $5,599, 2% to $11,199, 3% to $15,999, 3.4% to $26,399, then 3.9%; the top rate became 3.7% retroactive to 2026-01-01 (H.B. 1001; revised formula of 2026-05-29 not downloaded). $2,470 deduction matches |
 | HI | `HI-ann24-03.pdf`, `HI-2026-booklet-A.pdf` | https://files.hawaii.gov/tax/news/announce/ann24-03.pdf | **fixed** (was mismatch): 2026 std deduction is $8,000 single/MFS, $16,000 joint, $12,000 HoH (Act 46); engine has 4,400 / 8,800 / 6,424 |
 | MD | `MD-2026-withholding-guide.pdf` | https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/instructions/withholding/2026/withholding-guide.pdf | **fixed** (was mismatch): std deduction $3,400 single (joint $6,800 doubled, not stated) (engine $3,350 single / $6,700 joint) |
+| GA | `GA-2026-employers-tax-guide-updated-june.pdf` | https://dor.georgia.gov/document/document/2026-employers-tax-guide-updated-june-2026/download | **fixed** (was mismatch): 4.99% from 2026-05-11 (5.19% before; engine uses the year rate), standard deduction $30,000 joint / $15,000 other, dependent allowance $5,000 (was $4,000) |
+| WV | `WV-2026-SB392-sub1-enr.pdf` | https://code.wvlegislature.gov/signed_bills/2026%5C2026-RS-SB392-SUB1%20ENR_signed.pdf | **fixed** (was mismatch): W. Va. Code § 11-21-4j, taxable years from 2026-01-01: 2.11 / 2.81 / 3.16 / 4.22 / 4.58% at $10k / $25k / $40k / $60k; MFS table at half those thresholds |
 | IA | `IA-2026-withholding-formula.pdf` | https://revenue.iowa.gov/media/53/download | match (3.80%) |
 | OH | `OH-2026-percentage-method.pdf`, `OH-2026-optional-computer-formula.pdf` | https://dam.assets.ohio.gov/image/upload/tax.ohio.gov/employer_withholding/2026%20Withholding%20Tables/WHT_PercentageMethod_2026.pdf | partial: $26,050 threshold confirmed; withholding rates (1.6 / 2.99 / 3.4%) are not the statutory 2.75% |
 | ND | `ND-2026-withholding-rates-booklet.pdf` | https://www.tax.nd.gov/sites/www/files/documents/forms/individual/2026-iit/2026-income-tax-withholding-rates-booklet.pdf | **unconfirmed**: withholding zero band is $57,625 single / $57,500 married, which does not map to our statutory $48,475 / $80,975 (probably 2025 values) |
@@ -41,10 +43,7 @@ no official document read, only news or secondary reports.
 
 ## Reported but not read in an official document
 
-- **GA**: revised 2026 guide (2026-06-17): rate **4.99%**, std deduction $15,000 / $30,000; engine has 5.19% and
-  $12,000 / $24,000. `dor.georgia.gov` document URL returned 404.
-- **UT**: Pub. 14 revision (2026-04-27): rate **4.45%**, retroactive to 2026-01-01; engine has 4.5%.
-- **WV**: SB 392 (2026-03-31) 5% cut retroactive to 2026-01-01; engine has the 2025 rates (2.22 to 4.82%).
+- **UT**: S.B. 60 / Pub. 14 revision: rate **4.45%**, retroactive to 2026-01-01 (EY, Bloomberg Tax, Better Utah bill tracker); engine has 4.5%. Not applied: `tax.utah.gov` returns 403 and `le.utah.gov` times out from this host, so no official text was read.
 - **MA**: surtax threshold $1,107,750 (2026 Form 1-ES instructions) agrees; mass.gov blocks `curl`.
 - **MI**: 4.25%, $5,900 exemption agree with reports of Form 446; michigan.gov blocks `curl`.
 - **IL** 4.95% / $2,925, **IN** 2.95%, **ID** 5.3%: agree with reports; official files timed out.

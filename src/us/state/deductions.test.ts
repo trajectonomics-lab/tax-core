@@ -39,7 +39,7 @@ describe("calculateUsStateDeductions", () => {
 			US_2026_STATE_PARAMETERS.GA,
 			"USD",
 		)
-		expect(exemption.dependentExemptionCents).toBe(cents(12_000))
+		expect(exemption.dependentExemptionCents).toBe(cents(15_000))
 		const credit = calculateUsStateDeductions(
 			cents(100_000),
 			"single",

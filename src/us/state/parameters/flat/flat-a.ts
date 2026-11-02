@@ -35,16 +35,19 @@ const COLORADO: UsStateParameters = defineState({
 /**
  * 2026 Georgia individual income tax parameters.
  *
+ * 4.99% flat, $15,000 / $30,000 standard deduction and $5,000 dependent allowance per the Georgia
+ * DOR revised 2026 Employer's Tax Guide (June 2026; HB 463).
+ *
  * @statute Ga. Code Ann. § 48-7-20
  */
 const GEORGIA: UsStateParameters = defineState({
 	code: "GA",
 	name: "Georgia",
 	type: "flat",
-	single: [[0, 0.0519]],
-	mfj: [[0, 0.0519]],
-	std: [12000, 24000, 12000],
-	dependentExemption: 4_000,
+	single: [[0, 0.0499]],
+	mfj: [[0, 0.0499]],
+	std: [15000, 30000, 15000],
+	dependentExemption: 5_000,
 })
 
 /**

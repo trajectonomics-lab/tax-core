@@ -74,10 +74,10 @@ describe("US State Income Tax Stage", () => {
 			filingStatus: "married_filing_jointly",
 			dependents: 2,
 		})
-		expect(result.breakdown?.standardDeduction).toBe(usd(24_000))
-		expect(result.breakdown?.dependentExemption).toBe(usd(8_000))
-		expect(result.breakdown?.taxableIncome).toBe(usd(28_000))
-		expect(result.breakdown?.bracketTax).toBe(usd(1_453.2))
+		expect(result.breakdown?.standardDeduction).toBe(usd(30_000))
+		expect(result.breakdown?.dependentExemption).toBe(usd(10_000))
+		expect(result.breakdown?.taxableIncome).toBe(usd(20_000))
+		expect(result.breakdown?.bracketTax).toBe(usd(998))
 	})
 
 	it("computes progressive brackets and personal/dependent credits", () => {
