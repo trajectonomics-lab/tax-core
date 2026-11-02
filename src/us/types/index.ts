@@ -35,3 +35,12 @@ export type {
 	UsItemizedDeductionsInput,
 	UsTaxInput,
 } from "./input"
+export {
+	US_STATE_CODES,
+	type UsStateBreakdown,
+	type UsStateCode,
+	type UsStateCreditsBreakdown,
+	type UsStateCreditsInput,
+	type UsStateTaxType,
+} from "./state"
+export { UsStateField } from "./state-fields"

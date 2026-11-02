@@ -5,3 +5,7 @@ coverage/
 *.tgz
 .env
 .env.*
+
+# Raw official source documents (large, third-party); only the manifest is tracked
+references/*
+!references/SOURCES.md

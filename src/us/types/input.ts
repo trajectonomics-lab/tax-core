@@ -1,4 +1,5 @@
 import type { UsCreditsInput } from "./credits-input"
+import type { UsStateCode, UsStateCreditsInput } from "./state"
 
 /** Four statutory US Federal individual income tax filing statuses (IRC § 1). */
 export type UsFilingStatus =
@@ -62,4 +63,12 @@ export interface UsTaxInput {
 	readonly amtPreferences?: number
 	/** Non-refundable and refundable tax credits input. */
 	readonly credits?: UsCreditsInput
+	/** Optional US state or District of Columbia ISO code for state income tax. */
+	readonly state?: UsStateCode
+	/** Number of dependents claimed for state dependent exemptions or credits. */
+	readonly stateDependents?: number
+	/** State income tax withheld from wages in major dollars. */
+	readonly stateWithholding?: number
+	/** State non-refundable and refundable credits in major dollars. */
+	readonly stateCredits?: UsStateCreditsInput
 }

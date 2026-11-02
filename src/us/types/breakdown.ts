@@ -4,6 +4,7 @@ import type { Money } from "../../core/money"
 import type { UsAmtBreakdown } from "./breakdown-amt"
 import type { UsCreditsBreakdown } from "./breakdown-credits"
 import type { UsFicaBreakdown, UsScheduleSeBreakdown } from "./breakdown-payroll"
+import type { UsStateBreakdown } from "./state"
 
 /** Audit slice for Long-Term Capital Gains & Qualified Dividends (IRC § 1(h)). */
 export interface UsPreferentialSlice {
@@ -76,6 +77,7 @@ export interface UsTaxBreakdown {
 	readonly fica?: UsFicaBreakdown | undefined
 	readonly scheduleSe?: UsScheduleSeBreakdown | undefined
 	readonly credits?: UsCreditsBreakdown | undefined
+	readonly state?: UsStateBreakdown | undefined
 	readonly totalTax: Money<"USD">
 	readonly withholding: Money<"USD">
 	readonly netTaxPayable: Money<"USD">
