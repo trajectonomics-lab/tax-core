@@ -106,10 +106,10 @@ const FILING_STATUS_EXAMPLES: readonly WorkedExample[] = [
 		precision: 1,
 	},
 	{
-		// Utah dependents add 6% x 2,111 = 126.66 each to the credit: 4.5% x 100,000 - 966 - 126.66.
+		// Utah dependents add 6% x 2,111 = 126.66 each to the credit: 4.45% x 100,000 - 966 - 126.66.
 		state: "UT",
 		wages: 100_000,
-		expectedTax: 3407.34,
+		expectedTax: 3357.34,
 		label: "UT dependent credit base",
 		dependents: 1,
 	},
@@ -153,18 +153,18 @@ const FILING_STATUS_EXAMPLES: readonly WorkedExample[] = [
 		precision: 1,
 	},
 	{
-		// Utah has no deduction; the credit is 6% of the federal standard deduction (24,150 HoH).
+		// Utah has no deduction; the credit is 6% of the federal standard deduction (24,150 HoH): 4.45% x 100,000 - 1,449.
 		state: "UT",
 		wages: 100_000,
-		expectedTax: 3051,
+		expectedTax: 3001,
 		label: "UT head of household credit",
 		filingStatus: "head_of_household",
 	},
 	{
-		// Utah single: 4.5% x 100,000 less the 966 credit.
+		// Utah single: 4.45% x 100,000 less the 966 credit.
 		state: "UT",
 		wages: 100_000,
-		expectedTax: 3534,
+		expectedTax: 3484,
 		label: "UT single credit",
 	},
 	{

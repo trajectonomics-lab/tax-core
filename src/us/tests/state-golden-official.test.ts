@@ -40,6 +40,14 @@ const EXAMPLES: readonly OfficialExample[] = [
 		label: "LA head of household with the joint-size deduction",
 		filingStatus: "head_of_household",
 	},
+	{
+		// Utah S.B. 60 (2026 GS): rate 4.45% (was 4.5%). Single 100,000 wages:
+		// 4.45% x 100,000 = 4,450 tax before credit, less 966 personal credit = 3,484.
+		state: "UT",
+		wages: 100_000,
+		expectedTax: 3484,
+		label: "UT 4.45% statutory rate with personal credit",
+	},
 ]
 
 describe("US state tax corrected against official documents", () => {
