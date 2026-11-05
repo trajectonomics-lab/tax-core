@@ -58,6 +58,18 @@ function resolveHohTiers(def: UsStateDefinition): UsStateBracketTiers {
 	return def.hoh ?? def.single
 }
 
+function optionalRules(def: UsStateDefinition): Partial<UsStateParameters> {
+	return {
+		...(def.surtax ? { surtax: def.surtax } : {}),
+		...(def.standardDeductionPhaseOut
+			? { standardDeductionPhaseOut: def.standardDeductionPhaseOut }
+			: {}),
+		...(def.dependentExemptionPhaseOut
+			? { dependentExemptionPhaseOut: def.dependentExemptionPhaseOut }
+			: {}),
+	}
+}
+
 /**
  * Builds a complete state parameter table from a compact statutory definition.
  *
@@ -92,7 +104,7 @@ export function defineState(def: UsStateDefinition): UsStateParameters {
 		personalCredit: exemptionAmounts(personalCredit[0], personalCredit[1], personalCredit[2]),
 		dependentExemption: def.dependentExemption ?? 0,
 		dependentCredit: def.dependentCredit ?? 0,
-		...(def.surtax ? { surtax: def.surtax } : {}),
+		...optionalRules(def),
 	}
 }
 

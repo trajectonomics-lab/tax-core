@@ -1,5 +1,6 @@
 import type { TaxBracket } from "../../../core/brackets"
 import type { UsFilingStatus, UsStateCode, UsStateTaxType } from "../../types"
+import type { UsStatePhaseOut } from "./phase-out-types"
 
 /** Lower-bound and rate tuple for a state bracket tier, in major dollars and rate ratio. */
 export type UsStateBracketTier = readonly [lowerDollars: number, rate: number]
@@ -7,9 +8,12 @@ export type UsStateBracketTier = readonly [lowerDollars: number, rate: number]
 /** Ordered list of state bracket lower bounds and statutory rates. */
 export type UsStateBracketTiers = readonly UsStateBracketTier[]
 
+/** Surtax threshold: one amount for every filing status, or an amount per filing status. */
+export type UsStateSurtaxThreshold = number | Readonly<Record<UsFilingStatus, number>>
+
 /** Optional millionaire or high-income surtax applied above a taxable-income threshold. */
 export interface UsStateSurtax {
-	readonly threshold: number
+	readonly threshold: UsStateSurtaxThreshold
 	readonly rate: number
 }
 
@@ -34,6 +38,10 @@ export interface UsStateDefinition {
 	readonly dependentExemption?: number
 	readonly dependentCredit?: number
 	readonly surtax?: UsStateSurtax
+	/** Income-based reduction of the standard deduction. */
+	readonly standardDeductionPhaseOut?: UsStatePhaseOut
+	/** Income-based disallowance of the dependent exemption. */
+	readonly dependentExemptionPhaseOut?: UsStatePhaseOut
 }
 
 /** Complete statutory parameter table for one state's 2026 individual income tax. */
@@ -48,4 +56,6 @@ export interface UsStateParameters {
 	readonly dependentExemption: number
 	readonly dependentCredit: number
 	readonly surtax?: UsStateSurtax
+	readonly standardDeductionPhaseOut?: UsStatePhaseOut
+	readonly dependentExemptionPhaseOut?: UsStatePhaseOut
 }
